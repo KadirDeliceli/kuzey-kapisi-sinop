@@ -1,6 +1,8 @@
 # Nokul
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Nokul -->
+<!-- karsilama: Nokulun kokusu daha fırından yayılmadan anlatmaya başlayayım. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

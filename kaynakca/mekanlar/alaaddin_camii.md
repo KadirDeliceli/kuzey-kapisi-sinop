@@ -1,6 +1,8 @@
 # Alaaddin Camii (Sinop Ulu Camii)
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Alaaddin Camii -->
+<!-- karsilama: Sinop Ulu Camii'ni size anlatayım. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Genel Tanım

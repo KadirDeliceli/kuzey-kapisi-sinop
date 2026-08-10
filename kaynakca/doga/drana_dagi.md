@@ -1,6 +1,8 @@
 # Drana Dağı
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Drana Dağı -->
+<!-- karsilama: Drana Dağı hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

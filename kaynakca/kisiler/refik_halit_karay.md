@@ -1,6 +1,8 @@
 # Refik Halit Karay
 
 <!-- persona: kisiler.sahsiyet_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Refik Halit Karay -->
+<!-- karsilama: Refik Halit Karay hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse SADECE resmi/guvenilir kaynaklardan (Kultur Bakanligi, MEB, universite, TDV Islam Ansiklopedisi vb.) tamamlayabilir -->
 
 ## Kimlik

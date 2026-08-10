@@ -1,6 +1,8 @@
 # Sinop Kalesi ve Surları
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Sinop Kalesi -->
+<!-- karsilama: Şehri saran surların hikayesini dinlemek ister misiniz? -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Genel Tanım

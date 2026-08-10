@@ -1,6 +1,8 @@
 # İçli Tava (Hamsi)
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: İçli Tava -->
+<!-- karsilama: İçli Tava hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

@@ -1,6 +1,8 @@
 # İnceburun Tabiat Parkı
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: İnceburun Tabiat Parkı -->
+<!-- karsilama: Türkiye'nin en kuzey ucundayız. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

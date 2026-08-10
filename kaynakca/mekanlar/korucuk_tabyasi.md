@@ -1,6 +1,8 @@
 # Korucuk Tabyası
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Korucuk Tabyası -->
+<!-- karsilama: Korucuk Tabyası hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

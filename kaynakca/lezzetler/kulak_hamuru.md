@@ -1,6 +1,8 @@
 # Kulak Hamuru (Etli Hamur)
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Kulak Hamuru -->
+<!-- karsilama: Kulak Hamuru hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

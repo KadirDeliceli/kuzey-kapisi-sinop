@@ -1,6 +1,8 @@
 # Erfelek Tatlıca Şelaleleri
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Erfelek Şelaleleri -->
+<!-- karsilama: 28 şelalenin peşine düşmeye hazır mısınız? -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

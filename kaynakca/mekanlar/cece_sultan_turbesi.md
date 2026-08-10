@@ -1,6 +1,8 @@
 # Çeçe Sultan Türbesi
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Çeçe Sultan Türbesi -->
+<!-- karsilama: Çeçe Sultan Türbesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

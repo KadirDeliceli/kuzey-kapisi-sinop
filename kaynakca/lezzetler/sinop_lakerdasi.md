@@ -1,6 +1,8 @@
 # Sinop Lakerdası
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Sinop Lakerdası -->
+<!-- karsilama: Sinop Lakerdası hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

@@ -1,6 +1,8 @@
 # Seyyid İbrahim Bilal Hazretleri Türbesi (Cezayirli Ali Paşa Camii)
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Seyyid İbrahim Bilal Hazretleri Türbesi -->
+<!-- karsilama: Seyyid İbrahim Bilal Hazretleri Türbesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

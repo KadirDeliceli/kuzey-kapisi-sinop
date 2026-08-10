@@ -1,6 +1,8 @@
 # Katlama
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Katlama -->
+<!-- karsilama: Katlama hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

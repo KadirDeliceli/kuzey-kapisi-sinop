@@ -1,6 +1,8 @@
 # Bürnük Yaylası
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Bürnük Yaylası -->
+<!-- karsilama: Bürnük Yaylası hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

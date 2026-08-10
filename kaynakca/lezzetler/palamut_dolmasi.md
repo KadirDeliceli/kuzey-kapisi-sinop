@@ -1,6 +1,8 @@
 # Palamut Dolması
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Palamut Dolması -->
+<!-- karsilama: Palamut Dolması hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

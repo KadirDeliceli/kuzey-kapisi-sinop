@@ -1,6 +1,8 @@
 # Sinop Arkeoloji Müzesi
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Sinop Arkeoloji Müzesi -->
+<!-- karsilama: Sinop Arkeoloji Müzesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

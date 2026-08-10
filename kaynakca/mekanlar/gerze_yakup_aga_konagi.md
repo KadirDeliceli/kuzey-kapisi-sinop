@@ -1,6 +1,8 @@
 # Gerze Yakup Ağa Konağı
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Gerze Yakup Ağa Konağı -->
+<!-- karsilama: Gerze Yakup Ağa Konağı hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

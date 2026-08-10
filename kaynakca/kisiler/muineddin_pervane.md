@@ -1,6 +1,8 @@
 # Muineddin Süleyman Pervane
 
 <!-- persona: kisiler.sahsiyet_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Muineddin Süleyman Pervane -->
+<!-- karsilama: Muineddin Süleyman Pervane hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse SADECE resmi/guvenilir kaynaklardan (Kultur Bakanligi, MEB, universite, TDV Islam Ansiklopedisi vb.) tamamlayabilir -->
 
 ## Kimlik ve Dönem

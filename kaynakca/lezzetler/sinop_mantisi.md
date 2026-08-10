@@ -1,6 +1,8 @@
 # Sinop Mantısı
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Sinop Mantısı -->
+<!-- karsilama: Gel bakalım evladım, sana Sinop mantısının sırrını anlatayım. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

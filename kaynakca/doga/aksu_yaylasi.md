@@ -1,6 +1,8 @@
 # Aksu Yaylası
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Aksu Yaylası -->
+<!-- karsilama: Aksu Yaylası hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

@@ -1,6 +1,8 @@
 # Balatlar Kilisesi (Yapı Topluluğu)
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Balatlar Kilisesi -->
+<!-- karsilama: Roma'dan Bizans'a uzanan katmanlı bir yapıdayız. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

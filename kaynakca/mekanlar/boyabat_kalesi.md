@@ -1,6 +1,8 @@
 # Boyabat Kalesi
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Boyabat Kalesi -->
+<!-- karsilama: Boyabat Kalesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

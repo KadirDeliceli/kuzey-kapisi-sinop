@@ -1,6 +1,8 @@
 # Sirkeli Pırasa
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Sirkeli Pırasa -->
+<!-- karsilama: Sirkeli Pırasa hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

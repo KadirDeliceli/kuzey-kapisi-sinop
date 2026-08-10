@@ -1,6 +1,8 @@
 # Tirit (Islama)
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Tirit (Islama) -->
+<!-- karsilama: Tiriti anlatmadan Sinop sofrası eksik kalır evladım. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

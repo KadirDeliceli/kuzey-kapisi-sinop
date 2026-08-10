@@ -1,6 +1,8 @@
 # Bazalt Kayalıkları (Boyabat)
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Bazalt Kayalıkları -->
+<!-- karsilama: Bazalt Kayalıkları hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

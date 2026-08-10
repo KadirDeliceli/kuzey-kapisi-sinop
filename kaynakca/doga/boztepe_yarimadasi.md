@@ -1,6 +1,8 @@
 # Boztepe Yarımadası
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Boztepe Yarımadası -->
+<!-- karsilama: İki limana birden bakan tepedeyiz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

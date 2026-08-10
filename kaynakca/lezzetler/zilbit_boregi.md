@@ -1,6 +1,8 @@
 # Zılbıt Böreği
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Zılbıt Böreği -->
+<!-- karsilama: Zılbıt Böreği hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

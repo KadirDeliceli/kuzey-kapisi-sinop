@@ -1,6 +1,8 @@
 # DSİ Kampı ve Sahili
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: DSİ Kampı ve Sahili -->
+<!-- karsilama: DSİ Kampı ve Sahili hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

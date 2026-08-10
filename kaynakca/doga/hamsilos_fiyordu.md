@@ -1,6 +1,8 @@
 # Hamsilos Fiyordu (Hamsilos Koyu)
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Hamsilos Fiyordu -->
+<!-- karsilama: Türkiye'nin en özel koyuna hoş geldiniz. Rehberiniz olayım. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Genel Tanım

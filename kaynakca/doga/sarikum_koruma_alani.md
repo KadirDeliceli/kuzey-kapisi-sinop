@@ -1,6 +1,8 @@
 # Sarıkum Tabiatı Koruma Alanı
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Sarıkum Koruma Alanı -->
+<!-- karsilama: Dört ekosistemin buluştuğu yere hoş geldiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

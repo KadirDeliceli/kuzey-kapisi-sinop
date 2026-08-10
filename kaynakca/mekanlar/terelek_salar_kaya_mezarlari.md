@@ -1,6 +1,8 @@
 # Terelek ve Salar Köyü Kaya Mezarları
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Terelek ve Salar Köyü Kaya Mezarları -->
+<!-- karsilama: Terelek ve Salar Köyü Kaya Mezarları hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

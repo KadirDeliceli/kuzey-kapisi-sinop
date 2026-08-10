@@ -1,6 +1,8 @@
 # Sırık Kebabı
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Sırık Kebabı -->
+<!-- karsilama: Boyabat'ın sırık kebabı başka olur evladım, dinle. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

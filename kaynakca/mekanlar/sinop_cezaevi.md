@@ -1,6 +1,8 @@
 # Tarihi Sinop Cezaevi
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Tarihi Sinop Cezaevi -->
+<!-- karsilama: Anadolu'nun Alkatraz'ına hoş geldiniz. Neyi merak edersiniz? -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Genel Tanım

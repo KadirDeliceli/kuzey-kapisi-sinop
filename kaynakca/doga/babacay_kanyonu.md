@@ -1,6 +1,8 @@
 # Babaçay Kanyonu
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Babaçay Kanyonu -->
+<!-- karsilama: Babaçay Kanyonu hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

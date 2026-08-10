@@ -1,6 +1,8 @@
 # İnceburun Deniz Feneri
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: İnceburun Deniz Feneri -->
+<!-- karsilama: İnceburun Deniz Feneri hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

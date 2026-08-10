@@ -1,6 +1,8 @@
 # Hasuda Tatlısı
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Hasuda Tatlısı -->
+<!-- karsilama: Hasuda Tatlısı hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

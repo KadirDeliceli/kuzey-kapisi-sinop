@@ -1,6 +1,8 @@
 # Çatak Kanyonu (Türkeli)
 
 <!-- persona: doga.doga_rehberi | kart: Lezzet ve Doğa -->
+<!-- ad: Çatak Kanyonu -->
+<!-- karsilama: Çatak Kanyonu hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Tanım

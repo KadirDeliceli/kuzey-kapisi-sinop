@@ -1,6 +1,8 @@
 # Kestaneli İç Pilav
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Kestaneli İç Pilav -->
+<!-- karsilama: Kestaneli İç Pilav hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

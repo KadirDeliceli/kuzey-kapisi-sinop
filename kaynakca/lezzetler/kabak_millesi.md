@@ -1,6 +1,8 @@
 # Kabak Millesi (Akkabak Böreği)
 
 <!-- persona: lezzetler.asci | kart: Lezzet ve Doğa -->
+<!-- ad: Kabak Millesi -->
+<!-- karsilama: Kabak Millesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Nedir

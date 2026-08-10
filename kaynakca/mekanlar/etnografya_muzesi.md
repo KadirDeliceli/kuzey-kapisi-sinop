@@ -1,6 +1,8 @@
 # Etnografya Müzesi (Aslan Torun Konağı)
 
 <!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Etnografya Müzesi -->
+<!-- karsilama: Etnografya Müzesi hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
 ## Bilgiler

@@ -1,6 +1,8 @@
 # Sinoplu Difilos (Diphilus)
 
 <!-- persona: kisiler.sahsiyet_rehberi | kart: Tarih ve Kültür -->
+<!-- ad: Sinoplu Difilos -->
+<!-- karsilama: Sinoplu Difilos hakkında merak ettiğinizi sorabilirsiniz. -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse SADECE resmi/guvenilir kaynaklardan (Kultur Bakanligi, MEB, universite, TDV Islam Ansiklopedisi vb.) tamamlayabilir -->
 
 ## Kimlik ve Dönem
