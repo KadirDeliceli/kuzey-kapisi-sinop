@@ -10,6 +10,7 @@ Bu dosya, sohbet mantığının ortak (tekrar etmeyen) kısmını barındırır:
   - LangChain + Groq/Gemini ile sohbet zinciri kurma
   - basit oturum içi hafıza (sadece o karakterle konuşulurken)
 
+
 main.py bu fonksiyonları çağırır. Böylece 4 kategori fonksiyonu sade kalır.
 """
 

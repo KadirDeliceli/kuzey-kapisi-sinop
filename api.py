@@ -23,12 +23,23 @@ Endpoint'ler:
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware  # <-- BUNU EKLEDİK
 
 import bot_engine
 import katalog
 
 app = FastAPI(title="Sinop Akıllı Turizm API")
 
+
+# --- CORS AYARLARI BURAYA EKLENİR ---
+# React/Next.js uygulamanın bu API'ye erişebilmesi için gereklidir.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Next.js'in çalıştığı adres (Geliştirme için "*" da yapabilirsin)
+    allow_credentials=True,
+    allow_methods=["*"],  # GET, POST, OPTIONS vb. tüm metodlara izin ver
+    allow_headers=["*"],  # Tüm header'lara izin ver
+)
 
 # ------------------------------------------------------------------
 # İstek/yanıt modelleri
@@ -137,6 +148,15 @@ def oturum_kapat(istek: OturumKapatIstek):
 # ------------------------------------------------------------------
 # Basit test arayüzü (tarayıcıdan iki sekme açıp karışma testi için)
 # ------------------------------------------------------------------
+@app.get("/")
+def succes():
+    return {
+        "durum" : "çalışıyor"
+    }
+
+
+'''
+
 @app.get("/", response_class=HTMLResponse)
 def test_arayuzu():
     return """
@@ -264,3 +284,5 @@ katalogYukle();
 </body>
 </html>
 """
+
+'''
