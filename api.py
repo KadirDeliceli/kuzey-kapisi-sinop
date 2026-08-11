@@ -115,7 +115,14 @@ def sohbet(istek: SohbetIstek):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Yanıt üretilemedi: {e}")
-    return SohbetYanit(session_id=istek.session_id, cevap=cevap)
+    # Eğer cevap Gemini'den geliyorsa (liste formundaysa) içindeki metni al:
+    if isinstance(cevap, list) and len(cevap) > 0 and 'text' in cevap[0]:
+        cevap_metni = cevap[0]['text']
+    else:
+        # Groq'tan geliyorsa (zaten metinse) doğrudan kullan:
+        cevap_metni = str(cevap)
+
+    return SohbetYanit(session_id=istek.session_id, cevap=cevap_metni)
 
 
 # ------------------------------------------------------------------

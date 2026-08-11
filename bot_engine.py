@@ -7,7 +7,7 @@ Sinop Akıllı Turizm Platformu - Bot Çekirdeği
 Bu dosya, sohbet mantığının ortak (tekrar etmeyen) kısmını barındırır:
   - prompts.yaml'dan persona (system_message + kırmızı çizgiler) okuma
   - kaynakca/*.md dosyasından bilgi (context) okuma
-  - LangChain + Groq ile sohbet zinciri kurma
+  - LangChain + Groq/Gemini ile sohbet zinciri kurma
   - basit oturum içi hafıza (sadece o karakterle konuşulurken)
 
 main.py bu fonksiyonları çağırır. Böylece 4 kategori fonksiyonu sade kalır.
@@ -18,6 +18,7 @@ import yaml
 
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
 load_dotenv()
@@ -28,10 +29,26 @@ KOK_DIZIN = os.path.dirname(os.path.abspath(__file__))
 PROMPTS_YOLU = os.path.join(KOK_DIZIN, "prompts.yaml")
 KAYNAKCA_DIZIN = os.path.join(KOK_DIZIN, "kaynakca")
 
+# ------------------------------------------------------------------
+# MODEL SAĞLAYICI SEÇİMİ (TEK YERDEN)
+# ------------------------------------------------------------------
+# Buradaki tek değişkeni değiştirerek tüm yapıyı Groq veya Gemini'ye
+# geçirebilirsin. Geri kalan hiçbir fonksiyona dokunmana gerek yok;
+# hepsi _llm() üzerinden bu ayarı kullanır.
+#
+#   SAGLAYICI = "groq"    -> Groq (GROQ_API_KEY gerekir)
+#   SAGLAYICI = "gemini"  -> Gemini (GOOGLE_API_KEY gerekir)
+SAGLAYICI = "gemini"
+
+# Gemini model tercihi
+GEMINI_MODEL = "gemini-flash-latest"
+
 # Groq model tercihi:
 #   - "llama-3.3-70b-versatile" : daha güçlü/tutarlı (persona için önerilir)
 #   - "llama-3.1-8b-instant"    : daha hızlı ve ucuz
+#   - "openai/gpt-oss-120b"     : mevcut tercih
 GROQ_MODEL = "openai/gpt-oss-120b"
+
 SICAKLIK = 0.5  # persona canlılığı ile tutarlılık dengesi (dil sapmasını azaltır)
 
 
@@ -70,13 +87,33 @@ def kaynak_oku(alt_klasor, dosya_adi):
 # LLM (tek örnek yeterli)
 # ------------------------------------------------------------------
 def llm_getir():
-    if not os.environ.get("GROQ_API_KEY"):
-        raise RuntimeError(
-            "GROQ_API_KEY tanımlı değil. Terminalde şu şekilde ayarlayın:\n"
-            "  export GROQ_API_KEY='...'   (Linux/Mac)\n"
-            "  set GROQ_API_KEY=...        (Windows)"
+    """
+    SAGLAYICI ayarına göre uygun LLM örneğini döndürür.
+    İlgili API anahtarı tanımlı değilse anlaşılır bir hata verir.
+    """
+    if SAGLAYICI == "groq":
+        if not os.environ.get("GROQ_API_KEY"):
+            raise RuntimeError(
+                "GROQ_API_KEY tanımlı değil. Terminalde şu şekilde ayarlayın:\n"
+                "  export GROQ_API_KEY='...'   (Linux/Mac)\n"
+                "  set GROQ_API_KEY=...        (Windows)"
+            )
+        return ChatGroq(model=GROQ_MODEL, temperature=SICAKLIK)
+
+    elif SAGLAYICI == "gemini":
+        if not os.environ.get("GOOGLE_API_KEY"):
+            raise RuntimeError(
+                "GOOGLE_API_KEY tanımlı değil. Terminalde şu şekilde ayarlayın:\n"
+                "  export GOOGLE_API_KEY='...'   (Linux/Mac)\n"
+                "  set GOOGLE_API_KEY=...        (Windows)"
+            )
+        return ChatGoogleGenerativeAI(model=GEMINI_MODEL, temperature=SICAKLIK)
+
+    else:
+        raise ValueError(
+            f"Bilinmeyen SAGLAYICI: {SAGLAYICI!r} "
+            "(yalnızca 'groq' veya 'gemini' olabilir)."
         )
-    return ChatGroq(model=GROQ_MODEL, temperature=SICAKLIK)
 
 
 LLM = None  # ilk sohbette kurulur (lazy)
@@ -87,6 +124,40 @@ def _llm():
     if LLM is None:
         LLM = llm_getir()
     return LLM
+
+
+# ------------------------------------------------------------------
+# İÇERİK NORMALİZASYONU (Gemini/LangChain format filtresi)
+# ------------------------------------------------------------------
+def _icerik_metne(icerik):
+    """
+    LLM cevabının .content alanını HER ZAMAN düz metne (string) çevirir.
+
+    Neden gerekli?
+      Gemini/LangChain cevabı bazen düz metin yerine bir liste
+      (content block'ları: [{'type': 'text', 'text': '...'}]) döndürür.
+      Bu liste doğrudan AIMessage olarak geçmişe eklenirse, sonraki
+      turlarda model kendi geçmişini okuyamaz ve yanıt boş/hatalı gelir
+      (API tarafında da Pydantic doğrulama hatasına yol açar).
+
+    Bu fonksiyon:
+      - string ise aynen döndürür,
+      - liste ise TÜM metin bloklarını sırayla birleştirir (yalnızca ilkini değil),
+      - beklenmedik bir tip gelirse güvenli biçimde str()'e çevirir.
+    """
+    if isinstance(icerik, str):
+        return icerik
+
+    if isinstance(icerik, list):
+        parcalar = []
+        for blok in icerik:
+            if isinstance(blok, dict):
+                parcalar.append(blok.get("text", ""))
+            else:
+                parcalar.append(str(blok))
+        return "".join(parcalar).strip()
+
+    return str(icerik)
 
 
 # ------------------------------------------------------------------
@@ -160,11 +231,15 @@ def cevap_uret(session_id, kullanici_mesaji):
 
     try:
         cevap = _llm().invoke(mesajlar)
-        metin = cevap.content
+        # Model cevabı liste (content block) dönse bile temiz metne çevir.
+        # Böylece geçmişe her zaman düz string kaydedilir ve sonraki
+        # turlarda model kendi geçmişini sorunsuz okur.
+        metin = _icerik_metne(cevap.content)
     except Exception as e:
         mesajlar.pop()  # başarısız mesajı geçmişten çıkar
         raise e
 
+    # Geçmişe bozuk listeyi değil, temizlenmiş düz metni ekliyoruz.
     mesajlar.append(AIMessage(content=metin))
     return metin
 
