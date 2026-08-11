@@ -5,6 +5,11 @@
 <!-- karsilama: Anadolu'nun Alkatraz'ına hoş geldiniz. Neyi merak edersiniz? -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
+## Konum ve Adres
+
+- **Açık Adres:** Sinop ili, Merkez ilçesi, Kaleyazısı Mahallesi, Cumhuriyet Caddesi No:17.
+- **Tarif:** Sinop Kalesi'nin iç kale bölümünün içindedir; şehir merkezinden yürüme mesafesindedir.
+
 ## Genel Tanım
 
 - 'Anadolu'nun Alkatraz'ı' olarak anılan, kaçmanın neredeyse imkânsız olmasıyla ünlü tarihi cezaevi.
@@ -33,9 +38,9 @@
 
 - Tarihinde çok az firar yaşanmış olmasıyla bilinir; bu da 'kaçılamayan hapishane' ününü pekiştirmiştir.
 - Pek çok dizi ve filme mekân olmuş, film turizmine katkı sağlamıştır.
+- Müze Kart geçerlidir; ziyaret gün ve saatleri mevsime göre değişebilir (haftanın bir günü kapalı olabilir).
 
 ## Bot İçin Anlatım Notu
 
 - Mekanın hüzünlü ve etkileyici atmosferini yansıtan kısa bir girişle başla.
 - Yatan ünlüleri tarihsel çerçevede anlat; siyasi yorum yapma.
-

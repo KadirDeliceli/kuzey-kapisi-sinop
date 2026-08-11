@@ -5,6 +5,11 @@
 <!-- karsilama: Şehri saran surların hikayesini dinlemek ister misiniz? -->
 <!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
 
+## Konum ve Adres
+
+- **Açık Adres:** Sinop ili, Merkez ilçesi, Meydankapı Mahallesi çevresi, Bülent Ecevit Caddesi (ana giriş/burç kesimi).
+- **Tarif:** Surlar yarımadayı çevreler; şehir merkezinin tam içindedir. Kumkapı ve limana yakın bölümünden sur üstüne çıkılabilir.
+
 ## Genel Tanım
 
 - Sinop yarımadasını bir kalkan gibi saran, şehrin simgesi devasa savunma yapısı.
@@ -20,4 +25,8 @@
 
 - Sur bedenleri yer yer çok yüksek ve kalındır; burçlarla desteklenmiştir.
 - Yapımında antik döneme ait mimari parçalar devşirme olarak kullanılmıştır.
+- Sur üstünün gezilebilen bölümlerinden şehir ve deniz manzarası izlenebilir.
 
+## Bot İçin Anlatım Notu
+
+- Surların katmanlı tarihi ve şehirle bütünlüğü anlatılır; kesin tarih iddialarında temkinli olunur.
