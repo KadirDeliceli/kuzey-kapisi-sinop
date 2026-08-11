@@ -38,7 +38,7 @@ KAYNAKCA_DIZIN = os.path.join(KOK_DIZIN, "kaynakca")
 #
 #   SAGLAYICI = "groq"    -> Groq (GROQ_API_KEY gerekir)
 #   SAGLAYICI = "gemini"  -> Gemini (GOOGLE_API_KEY gerekir)
-SAGLAYICI = "gemini"
+SAGLAYICI = "groq"
 
 # Gemini model tercihi
 GEMINI_MODEL = "gemini-flash-latest"
