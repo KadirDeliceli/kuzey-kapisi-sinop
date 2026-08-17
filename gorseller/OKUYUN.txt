@@ -1,0 +1,13 @@
+Görselleri buraya yerleştirin.
+
+Kural: dosya adı = ilgili .md dosyasının adı, uzantı .jpg (fronted.md §5).
+Bulunamayan görsel otomatik /default.png'e düşer.
+
+Beklenen tüm dosyaların listesi bir üst klasördeki GORSELLER_LISTESI.txt dosyasındadır.
+
+Alt klasörler:
+  kart/       -> ana ve alt kart kapakları (tarih-kultur.jpg, tarih.jpg, ...)
+  kisiler/    -> tarihi şahsiyetler (alaaddin_keykubat.jpg, ...)
+  mekanlar/   -> tarihi mekanlar (sinop_kalesi.jpg, ...)
+  lezzetler/  -> yöresel lezzetler (sirik_kebabi.jpg, ...)
+  doga/       -> doğal güzellikler (hamsilos_fiyordu.jpg, ...)

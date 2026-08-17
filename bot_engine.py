@@ -48,7 +48,7 @@ GEMINI_MODEL = "gemini-flash-latest"
 #   - "llama-3.3-70b-versatile" : daha güçlü/tutarlı (persona için önerilir)
 #   - "llama-3.1-8b-instant"    : daha hızlı ve ucuz
 #   - "openai/gpt-oss-120b"     : mevcut tercih
-GROQ_MODEL = "openai/gpt-oss-120b"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 SICAKLIK = 0.5  # persona canlılığı ile tutarlılık dengesi (dil sapmasını azaltır)
 

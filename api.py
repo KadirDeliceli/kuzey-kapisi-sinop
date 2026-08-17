@@ -27,18 +27,37 @@ from fastapi.middleware.cors import CORSMiddleware  # <-- BUNU EKLEDİK
 
 import bot_engine
 import katalog
+from fastapi.responses import FileResponse
+from pathlib import Path
+
 
 app = FastAPI(title="Sinop Akıllı Turizm API")
 
 
 # --- CORS AYARLARI BURAYA EKLENİR ---
 # React/Next.js uygulamanın bu API'ye erişebilmesi için gereklidir.
+'''
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],  # Next.js'in çalıştığı adres (Geliştirme için "*" da yapabilirsin)
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST, OPTIONS vb. tüm metodlara izin ver
     allow_headers=["*"],  # Tüm header'lara izin ver
+)
+'''
+
+app.add_middleware(
+    CORSMiddleware,
+    # Geliştirme sırasında Compose Web dev server portu (8080/8081/8082...) ve
+    # erişim adresi (localhost / 127.0.0.1 / PC'nin LAN IP'si) sık değişiyor.
+    # Regex ile localhost, 127.0.0.1 ve 192.168.x.x'ten HERHANGİ bir porta izin ver.
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}):\d+",
+    allow_origins=[
+        "http://localhost:3000",   # Next.js (varsa)
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # İstek/yanıt modelleri
@@ -133,6 +152,25 @@ def sohbet(istek: SohbetIstek):
 def oturum_kapat(istek: OturumKapatIstek):
     bot_engine.oturum_kapat(istek.session_id)
     return {"durum": "kapatildi", "session_id": istek.session_id}
+
+# --- GÖRSEL SUNUCUSU ---
+# Kural: görsel adı .md dosya adıyla birebir aynı, uzantı serbest (.jpg/.png/.webp denenir).
+# İstek: GET /gorseller/{kategori}/{kod}  (uzantı YAZMA — sunucu kendi bulur)
+GORSELLER_DIZINI = Path(__file__).parent / "gorseller"
+GECERLI_GORSEL_KATEGORILERI = {"kisiler", "mekanlar", "lezzetler", "doga", "kart"}
+GECERLI_UZANTILAR = (".jpg", ".jpeg", ".png", ".webp")
+
+@app.get("/gorseller/{kategori}/{kod}")
+def gorsel_getir(kategori: str, kod: str):
+    if kategori not in GECERLI_GORSEL_KATEGORILERI:
+        raise HTTPException(status_code=404, detail="Geçersiz görsel kategorisi.")
+    if "/" in kod or "\\" in kod or ".." in kod:
+        raise HTTPException(status_code=404, detail="Geçersiz dosya adı.")
+    for uzanti in GECERLI_UZANTILAR:
+        yol = GORSELLER_DIZINI / kategori / f"{kod}{uzanti}"
+        if yol.is_file():
+            return FileResponse(yol)
+    raise HTTPException(status_code=404, detail="Görsel bulunamadı.")
 
 
 # Basit test arayüzü (tarayıcıdan iki sekme açıp karışma testi için)
