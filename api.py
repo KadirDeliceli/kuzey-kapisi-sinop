@@ -157,7 +157,7 @@ def oturum_kapat(istek: OturumKapatIstek):
 # Kural: görsel adı .md dosya adıyla birebir aynı, uzantı serbest (.jpg/.png/.webp denenir).
 # İstek: GET /gorseller/{kategori}/{kod}  (uzantı YAZMA — sunucu kendi bulur)
 GORSELLER_DIZINI = Path(__file__).parent / "gorseller"
-GECERLI_GORSEL_KATEGORILERI = {"kisiler", "mekanlar", "lezzetler", "doga", "kart"}
+GECERLI_GORSEL_KATEGORILERI = {"kisiler", "mekanlar", "lezzetler", "doga", "tescil", "kart"}
 GECERLI_UZANTILAR = (".jpg", ".jpeg", ".png", ".webp")
 
 @app.get("/gorseller/{kategori}/{kod}")

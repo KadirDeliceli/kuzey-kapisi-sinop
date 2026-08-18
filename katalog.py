@@ -33,6 +33,7 @@ KATEGORI_ADLARI = {
     "mekanlar":  {"ad": "Tarihi Mekanlar",    "sira": 2},
     "lezzetler": {"ad": "Yöresel Lezzetler",  "sira": 3},
     "doga":      {"ad": "Doğal Güzellikler",  "sira": 4},
+    "tescil":    {"ad": "Tescilli Ürünler",   "sira": 5},
 }
 
 
