@@ -6,21 +6,30 @@ rota_motoru.py
 
 Akış:
   1) SQLite'taki (kuzeykapisi.db / mekanlar tablosu) tüm mekanlar okunur.
-  2) Kullanıcının SERBEST METİN mesajı TEK bir LLM çağrısıyla dörde ayrıştırılır:
+  2) Kullanıcının SERBEST METİN mesajı TEK bir LLM çağrısıyla ayrıştırılır:
        - kaç saat vakti olduğu (belirtilmemişse varsayılan kullanılır)
+       - zorunlu başlangıç mekanı (kullanıcı "X ile başlamak istiyorum" dediyse)
+       - zorunlu bitiş mekanı (kullanıcı "X ile bitirmek istiyorum" dediyse)
+       - İSTENİLEN mekan(lar) (kullanıcı isim vererek "X'e/Y'ye gitmek/görmek
+         istiyorum" dediyse — sırası önemli değil, sadece dahil edilmesi
+         istenir; tek ya da birden çok olabilir)
        - genel TEMA tercihi (ör. "doğa", "müze") -> aday mekan id'leri
-       - kullanıcı açıkça "X ile başlamak istiyorum" dediyse: zorunlu başlangıç
-       - kullanıcı açıkça "X ile bitirmek istiyorum" dediyse: zorunlu bitiş
-     ÖNEMLİ: Tek bir mekanı başlangıç/bitiş olarak ADLANDIRMAK, tema filtresi
-     SAYILMAZ — bu durumda diğer tüm mekanlar yine aday kalır, aradaki süre
-     onlarla doldurulur (eskiden buradaki ayrım yoktu, tek mekana daralıyordu).
-  3) Zorunlu başlangıç varsa ilk durak o olur. Ardından kalan süre bütçesi
-     içinde açgözlü (nearest-neighbor) ara duraklar eklenir — ama zorunlu bir
-     bitiş varsa, her adımda "bu adaydan sonra bitiş noktasına gidip onu
-     ziyaret etmeye hâlâ yetecek kadar süre kalıyor mu" kontrol edilir, yetmezse
-     o aday atlanır. En sonda zorunlu bitiş, gerçek son konumdan hesaplanan
-     yol süresiyle rotaya eklenir (kullanıcı açıkça istediği için, bütçeyi çok
-     az aşsa bile eklenir; aşarsa özet metninde belirtilir).
+     ÖNEMLİ: Belirli mekan(lar)ı İSİM VEREREK istemek, tema filtresi SAYILMAZ
+     — bu durumda diğer tüm mekanlar yine aday kalır, aradaki süre onlarla
+     doldurulur.
+  3) Rota kurulumu:
+       a) Zorunlu başlangıç varsa ilk durak o olur (koşulsuz eklenir).
+       b) İSTENİLEN mekanlar, süre bütçesi içinde en-yakın mantığıyla
+          ÖNCELİKLİ olarak yerleştirilir (genel havuzdan ÖNCE denenir) —
+          böylece kullanıcının isim verdiği yerler, "daha yakın" genel
+          adaylar yüzünden dışarıda kalmaz.
+       c) Kalan süre, genel tema havuzuyla (secilen_idler) yine en-yakın
+          mantığıyla doldurulur.
+       d) Zorunlu bitiş varsa, gerçek son konumdan hesaplanan yol süresiyle
+          en sona eklenir (kullanıcı açıkça istediği için bütçeyi az aşsa
+          bile eklenir).
+       Adım (b) ve (c)'de her zaman, zorunlu bitiş için yeterli süre kalıp
+       kalmadığı kontrol edilir.
   4) Her durağa bir Google Maps yol tarifi linki eklenir.
 
 ÖNEMLİ VARSAYIMLAR (gerekirse değiştirin):
@@ -95,8 +104,8 @@ def _google_maps_url(enlem, boylam):
 
 def _mesaji_coz(mekanlar, mesaj):
     """Kullanıcının serbest metnini TEK bir LLM çağrısıyla ayrıştırır:
-    (süre, tema-filtrelenmiş adaylar, zorunlu başlangıç mekanı, zorunlu bitiş
-    mekanı). Herhangi bir alan çıkarılamazsa güvenli varsayımlara düşer."""
+    (süre, zorunlu başlangıç, zorunlu bitiş, istenilen mekan(lar), tema
+    filtresi). Herhangi bir alan çıkarılamazsa güvenli varsayımlara düşer."""
     id_harita = {m["id"]: m for m in mekanlar}
     aday_liste = [
         {"id": m["id"], "ad": m["ad"], "tur": m["tur"], "aciklama": m["aciklama"][:200]}
@@ -104,7 +113,7 @@ def _mesaji_coz(mekanlar, mesaj):
     ]
     sistem = (
         "Sen bir gezi rota asistanısın. Kullanıcının serbest Türkçe mesajından "
-        "DÖRT şeyi çıkaracaksın:\n"
+        "ALTI şeyi çıkaracaksın:\n"
         "1) sure_saat: kaç saat vakti olduğu (sayısal, ondalıklı olabilir). "
         "Mesajda YOKSA null.\n"
         "2) sabit_baslangic_id: kullanıcı açıkça 'X ile başlamak istiyorum', "
@@ -113,17 +122,36 @@ def _mesaji_coz(mekanlar, mesaj):
         "3) sabit_bitis_id: kullanıcı açıkça 'X ile bitirmek istiyorum', "
         "'son olarak X'e gitmek istiyorum' gibi BELİRLİ bir mekanı rotanın "
         "SON durağı yapmak istediğini söylüyorsa o mekanın id'si, yoksa null.\n"
-        "4) secilen_idler: kullanıcının GENEL TERCİHİNE (tema/kategori, ör. "
-        "'doğa', 'müze', 'tarihi yerler') uyan mekanların id'leri. ÇOK ÖNEMLİ: "
-        "Kullanıcı sadece belirli bir mekanı başlangıç/bitiş olarak ADLANDIRDIYSA "
-        "(madde 2 veya 3), bu TEK BAŞINA bir tema tercihi SAYILMAZ — bu durumda "
-        "secilen_idler'e TÜM id'leri döndür (rotanın geri kalanını doldurmak "
-        "için çeşitli mekanlar gerekir). SADECE kullanıcı gerçekten bir TEMA/ "
-        "KATEGORİ belirtmişse (ör. 'doğa gezmek istiyorum') secilen_idler'i o "
-        "temaya göre filtrele. Belirsizse yine TÜM id'leri döndür.\n"
+        "4) istenilen_idler: kullanıcının mesajda AÇIKÇA İSİM VEREREK görmek/ "
+        "gitmek istediğini belirttiği mekan(lar)ın id listesi. TEK bir yer de "
+        "olabilir, BİRDEN FAZLA yer de olabilir. Bu mekanların rotadaki SIRASI "
+        "önemli değildir (başlangıç/bitiş olmaları GEREKMEZ, sadece rotaya "
+        "dahil edilmeleri istenir). Örnek: 'Aklıman'a gitmek istiyorum' -> "
+        "Aklıman'ın id'si burada. Bir mekan zaten sabit_baslangic_id veya "
+        "sabit_bitis_id olarak seçildiyse, onu TEKRAR buraya ekleme.\n"
+        "5) haric_idler: kullanıcının OLUMSUZ belirttiği, GEZMEK İSTEMEDİĞİ "
+        "mekan(lar)ın id listesi. 'X gezmek istemiyorum', 'X'e gitmek "
+        "istemem', 'X hariç', 'X olmasın' gibi ifadeleri yakala. Bu, hem "
+        "belirli bir mekan ismi (ör. 'Sinop Kalesi istemiyorum') hem de bir "
+        "TÜR/TEMA (ör. 'türbe ve cami gezmek istemiyorum' -> bu türden/isimden "
+        "TÜM mekanların id'leri) için geçerlidir; mekanın 'ad', 'tur' ve "
+        "'aciklama' alanlarına bakarak eşleşen TÜM id'leri buraya koy. Bu "
+        "mekanlar rotada KESİNLİKLE görünmemeli, başka hiçbir kural (madde 2, "
+        "3, 4, 6) bunu geçersiz kılamaz.\n"
+        "6) secilen_idler: kullanıcının GENEL POZİTİF TERCİHİNE (tema/kategori, "
+        "ör. 'doğa', 'müze', 'tarihi yerler') uyan mekanların id'leri. ÇOK "
+        "ÖNEMLİ: Kullanıcı sadece belirli mekan(lar)ı İSİM VEREREK istediyse "
+        "(madde 2, 3 veya 4) ya da sadece hariç tutma belirttiyse (madde 5), "
+        "bu TEK BAŞINA bir pozitif tema tercihi SAYILMAZ — bu durumda "
+        "secilen_idler'e TÜM id'leri döndür (haric_idler zaten ayrıca "
+        "elenecek). SADECE kullanıcı gerçekten POZİTİF bir TEMA/KATEGORİ "
+        "belirtmişse (ör. 'doğa gezmek istiyorum') secilen_idler'i o temaya "
+        "göre filtrele. Kullanıcı sadece süre belirtip başka hiçbir şey "
+        "söylemediyse (ör. '6 saatim var') de yine TÜM id'leri döndür.\n"
         "SADECE şu formatta geçerli JSON döndür, başka hiçbir açıklama/metin "
         'yazma: {"sure_saat": 6, "sabit_baslangic_id": null, '
-        '"sabit_bitis_id": 12, "secilen_idler": [1,2,3]}'
+        '"sabit_bitis_id": null, "istenilen_idler": [7], "haric_idler": [4,9], '
+        '"secilen_idler": [1,2,3]}'
     )
     kullanici = (
         f'Kullanıcının mesajı: "{mesaj.strip()}"\n\n'
@@ -136,6 +164,8 @@ def _mesaji_coz(mekanlar, mesaj):
     kategoriler = []
     baslangic_id = None
     bitis_id = None
+    istenilen_idler = []
+    haric_idler = set()
 
     try:
         yanit = _llm_al().invoke([("system", sistem), ("human", kullanici)])
@@ -158,6 +188,20 @@ def _mesaji_coz(mekanlar, mesaj):
         if baslangic_id is not None and baslangic_id == bitis_id:
             bitis_id = None  # çelişki: aynı mekan hem başlangıç hem bitiş olamaz
 
+        ham_istenilen = veri.get("istenilen_idler") or []
+        for x in ham_istenilen:
+            if isinstance(x, (int, float)):
+                xi = int(x)
+                if xi in id_harita and xi not in (baslangic_id, bitis_id):
+                    istenilen_idler.append(xi)
+        istenilen_idler = list(dict.fromkeys(istenilen_idler))  # sırayı koru, tekrarı at
+
+        ham_haric = veri.get("haric_idler") or []
+        haric_idler = set()
+        for x in ham_haric:
+            if isinstance(x, (int, float)) and int(x) in id_harita:
+                haric_idler.add(int(x))
+
         secilen_idler = set(veri.get("secilen_idler") or [])
         if secilen_idler:
             filtrelenmis = [m for m in mekanlar if m["id"] in secilen_idler]
@@ -170,7 +214,7 @@ def _mesaji_coz(mekanlar, mesaj):
     if sure_saat is None:
         sure_saat = DEFAULT_SURE_SAAT
 
-    return sure_saat, sure_belirtilmedi, adaylar, kategoriler, baslangic_id, bitis_id
+    return sure_saat, sure_belirtilmedi, adaylar, kategoriler, baslangic_id, bitis_id, istenilen_idler, haric_idler
 
 
 def rota_olustur(enlem, boylam, mesaj):
@@ -186,19 +230,28 @@ def rota_olustur(enlem, boylam, mesaj):
         }
 
     id_harita = {m["id"]: m for m in tum_mekanlar}
-    sure_saat, sure_belirtilmedi, adaylar, kategoriler, baslangic_id, bitis_id = (
-        _mesaji_coz(tum_mekanlar, mesaj)
-    )
+    (sure_saat, sure_belirtilmedi, adaylar, kategoriler,
+     baslangic_id, bitis_id, istenilen_idler, haric_idler) = _mesaji_coz(tum_mekanlar, mesaj)
     adaylar = list(adaylar)
+
+    # HARİÇ TUTULANLAR: hiçbir aşamada kullanılmasın (en güçlü kural)
+    if haric_idler:
+        adaylar = [m for m in adaylar if m["id"] not in haric_idler]
+        istenilen_idler = [i for i in istenilen_idler if i not in haric_idler]
+        if baslangic_id in haric_idler:
+            baslangic_id = None
+        if bitis_id in haric_idler:
+            bitis_id = None
 
     baslangic_mekan = id_harita.get(baslangic_id) if baslangic_id is not None else None
     bitis_mekan = id_harita.get(bitis_id) if bitis_id is not None else None
+    istenilen_havuz = [id_harita[i] for i in istenilen_idler if i in id_harita]
 
-    # Zorunlu mekanlar, açgözlü seçim havuzunda ikinci kez seçilmesin
-    if baslangic_mekan:
-        adaylar = [m for m in adaylar if m["id"] != baslangic_mekan["id"]]
-    if bitis_mekan:
-        adaylar = [m for m in adaylar if m["id"] != bitis_mekan["id"]]
+    # Zorunlu/istenilen mekanlar, genel havuzda ikinci kez seçilmesin
+    disari_id_seti = {m["id"] for m in ([baslangic_mekan] if baslangic_mekan else [])}
+    disari_id_seti |= {m["id"] for m in ([bitis_mekan] if bitis_mekan else [])}
+    disari_id_seti |= {m["id"] for m in istenilen_havuz}
+    adaylar = [m for m in adaylar if m["id"] not in disari_id_seti]
 
     kalan_dk = round(sure_saat * 60)
     su_anki_lat, su_anki_lon = enlem, boylam
@@ -227,13 +280,36 @@ def rota_olustur(enlem, boylam, mesaj):
         su_anki_lat, su_anki_lon = mekan["enlem"], mekan["boylam"]
         return gerekli
 
+    def bitis_icin_yer_var_mi(aday_lat, aday_lon, ekstra_gerekli, kalan):
+        """Bu adayı eklersek, zorunlu bitişe hâlâ yetecek kadar süre kalır mı?"""
+        if not bitis_mekan:
+            return ekstra_gerekli <= kalan
+        kalan_sonra = kalan - ekstra_gerekli
+        if kalan_sonra < 0:
+            return False
+        bitise_yol = _yol_dk(aday_lat, aday_lon, bitis_mekan["enlem"], bitis_mekan["boylam"])
+        bitis_gerekli = bitise_yol + bitis_mekan["sure_dk"]
+        return bitis_gerekli <= kalan_sonra
+
     # 1) Zorunlu başlangıç — kullanıcı açıkça istedi, koşulsuz eklenir
     if baslangic_mekan:
         yol = _yol_dk(su_anki_lat, su_anki_lon, baslangic_mekan["enlem"], baslangic_mekan["boylam"])
-        gerekli = durak_ekle(baslangic_mekan, yol)
-        kalan_dk -= gerekli
+        kalan_dk -= durak_ekle(baslangic_mekan, yol)
 
-    # 2) Ara duraklar — açgözlü en-yakın, ama zorunlu bitiş için hep yer ayır
+    # 2) İSTENİLEN mekanlar — genel havuzdan ÖNCE, öncelikli yerleştirilir
+    while istenilen_havuz and kalan_dk > 0:
+        en_yakin = min(
+            istenilen_havuz,
+            key=lambda m: _yol_dk(su_anki_lat, su_anki_lon, m["enlem"], m["boylam"]),
+        )
+        yol = _yol_dk(su_anki_lat, su_anki_lon, en_yakin["enlem"], en_yakin["boylam"])
+        gerekli = yol + en_yakin["sure_dk"]
+
+        if bitis_icin_yer_var_mi(su_anki_lat, su_anki_lon, gerekli, kalan_dk):
+            kalan_dk -= durak_ekle(en_yakin, yol)
+        istenilen_havuz.remove(en_yakin)  # sığdı ya da sığmadı, ele alındı
+
+    # 3) Genel tema havuzu — en-yakın mantığıyla kalan süreyi doldurur
     while adaylar and kalan_dk > 0:
         en_yakin = min(
             adaylar,
@@ -242,22 +318,11 @@ def rota_olustur(enlem, boylam, mesaj):
         yol = _yol_dk(su_anki_lat, su_anki_lon, en_yakin["enlem"], en_yakin["boylam"])
         gerekli = yol + en_yakin["sure_dk"]
 
-        if bitis_mekan:
-            bitise_yol = _yol_dk(
-                en_yakin["enlem"], en_yakin["boylam"],
-                bitis_mekan["enlem"], bitis_mekan["boylam"],
-            )
-            bitis_gerekli = bitise_yol + bitis_mekan["sure_dk"]
-        else:
-            bitis_gerekli = 0
-
-        if gerekli + bitis_gerekli <= kalan_dk:
+        if bitis_icin_yer_var_mi(su_anki_lat, su_anki_lon, gerekli, kalan_dk):
             kalan_dk -= durak_ekle(en_yakin, yol)
-            adaylar.remove(en_yakin)
-        else:
-            adaylar.remove(en_yakin)  # sığmıyor; bir sonraki en yakına bak
+        adaylar.remove(en_yakin)
 
-    # 3) Zorunlu bitiş — kullanıcı açıkça istedi, bütçeyi az aşsa bile eklenir
+    # 4) Zorunlu bitiş — kullanıcı açıkça istedi, bütçeyi az aşsa bile eklenir
     asildi_mi = False
     if bitis_mekan:
         yol = _yol_dk(su_anki_lat, su_anki_lon, bitis_mekan["enlem"], bitis_mekan["boylam"])
