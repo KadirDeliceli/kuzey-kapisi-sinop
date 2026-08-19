@@ -29,6 +29,7 @@ import bot_engine
 import katalog
 from fastapi.responses import FileResponse
 from pathlib import Path
+from rota_motoru import rota_olustur
 
 
 app = FastAPI(title="Sinop Akıllı Turizm API")
@@ -36,15 +37,6 @@ app = FastAPI(title="Sinop Akıllı Turizm API")
 
 # --- CORS AYARLARI BURAYA EKLENİR ---
 # React/Next.js uygulamanın bu API'ye erişebilmesi için gereklidir.
-'''
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js'in çalıştığı adres (Geliştirme için "*" da yapabilirsin)
-    allow_credentials=True,
-    allow_methods=["*"],  # GET, POST, OPTIONS vb. tüm metodlara izin ver
-    allow_headers=["*"],  # Tüm header'lara izin ver
-)
-'''
 
 app.add_middleware(
     CORSMiddleware,
@@ -84,6 +76,11 @@ class SohbetYanit(BaseModel):
 
 class OturumKapatIstek(BaseModel):
     session_id: str
+
+class RotaIstek(BaseModel):
+    enlem: float
+    boylam: float
+    mesaj: str
 
 
 # Katalog (kategoriler + öğeler) — frontend menüyü buradan çizer
@@ -171,6 +168,15 @@ def gorsel_getir(kategori: str, kod: str):
         if yol.is_file():
             return FileResponse(yol)
     raise HTTPException(status_code=404, detail="Görsel bulunamadı.")
+
+@app.post("/rota/olustur")
+def rota_olustur_endpoint(istek: RotaIstek):
+    if not istek.mesaj.strip():
+        raise HTTPException(status_code=400, detail="Mesaj boş olamaz.")
+    try:
+        return rota_olustur(istek.enlem, istek.boylam, istek.mesaj)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Rota oluşturulamadı: {e}")
 
 
 # Basit test arayüzü (tarayıcıdan iki sekme açıp karışma testi için)
