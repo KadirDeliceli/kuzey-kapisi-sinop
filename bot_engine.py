@@ -13,14 +13,10 @@ PROMPTS_YOLU = os.path.join(KOK_DIZIN, "prompts.yaml")
 KAYNAKCA_DIZIN = os.path.join(KOK_DIZIN, "kaynakca")
 
 
-SAGLAYICI = "groq"
+SAGLAYICI = os.getenv("SAGLAYICI", "groq")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
-GEMINI_MODEL = "gemini-flash-latest"
-
-
-GROQ_MODEL = "openai/gpt-oss-120b"
-#   - "llama-3.1-8b-instant"
-#   - "openai/gpt-oss-120b"
 
 SICAKLIK = 0.5
 

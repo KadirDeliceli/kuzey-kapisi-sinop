@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 """
 rota_motoru.py
-"Akıllı Zaman ve Rota Düzenleyici"  için motor.
+--------------
+"Akıllı Zaman ve Rota Düzenleyici" (Kart 3) için motor.
 
 Akış:
   1) SQLite'taki (kuzeykapisi.db / mekanlar tablosu) tüm mekanlar okunur.
@@ -49,26 +51,60 @@ load_dotenv()
 # --- Ayarlar (gerekirse değiştir) ---
 KOK_DIZIN = Path(__file__).parent
 DB_YOLU = KOK_DIZIN / "kuzey_kapisi.db"   # <-- gerçek dosya adın farklıysa burayı değiştir
-ORTALAMA_HIZ_KMH = 60                     # kalibre edilebilir varsayım
-SABIT_VARIS_EKI_DK = 15                    # park etme / yürüme payı
+ORTALAMA_HIZ_KMH = 32                     # kalibre edilebilir varsayım
+SABIT_VARIS_EKI_DK = 5                    # park etme / yürüme payı
 DEFAULT_SURE_SAAT = 4.0                   # mesajda süre yoksa kullanılır
 SURE_MIN_SAAT = 0.5
-SURE_MAX_SAAT = 15.0
+SURE_MAX_SAAT = 14.0
 
-LLM_MODEL = "openai/gpt-oss-120b"
+# bot_engine.py'deki llm_getir() ile AYNI SAGLAYICI mantığı
+SAGLAYICI = os.getenv("SAGLAYICI", "groq")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+SICAKLIK = 0.1   # rota ayrıştırma JSON döndürdüğü için düşük tutulur
 
 _llm = None
 
 
 def _llm_al():
+    """SAGLAYICI ayarına göre uygun LLM örneğini döndürür (bot_engine.py'deki
+    llm_getir() ile birebir aynı mantık); tembel ve tek seferlik oluşturulur."""
     global _llm
-    if _llm is None:
+    if _llm is not None:
+        return _llm
+
+    if SAGLAYICI == "groq":
+        if not os.environ.get("GROQ_API_KEY"):
+            raise RuntimeError(
+                "GROQ_API_KEY tanımlı değil. .env dosyanıza ekleyin veya "
+                "terminalde tanımlayın."
+            )
         from langchain_groq import ChatGroq
         _llm = ChatGroq(
-            model=LLM_MODEL,
+            model=GROQ_MODEL,
             api_key=os.environ.get("GROQ_API_KEY"),
-            temperature=0.1,
+            temperature=SICAKLIK,
         )
+
+    elif SAGLAYICI == "gemini":
+        if not os.environ.get("GOOGLE_API_KEY"):
+            raise RuntimeError(
+                "GOOGLE_API_KEY tanımlı değil. .env dosyanıza ekleyin veya "
+                "terminalde tanımlayın."
+            )
+        from langchain_google_genai import ChatGoogleGenerativeAI
+        _llm = ChatGoogleGenerativeAI(
+            model=GEMINI_MODEL,
+            google_api_key=os.environ.get("GOOGLE_API_KEY"),
+            temperature=SICAKLIK,
+        )
+
+    else:
+        raise ValueError(
+            f"Bilinmeyen SAGLAYICI: {SAGLAYICI!r} "
+            "(yalnızca 'groq' veya 'gemini' olabilir)."
+        )
+
     return _llm
 
 
@@ -98,6 +134,24 @@ def _yol_dk(lat1, lon1, lat2, lon2):
 
 def _google_maps_url(enlem, boylam):
     return f"https://www.google.com/maps/dir/?api=1&destination={enlem},{boylam}"
+
+
+def _icerik_metni(icerik):
+    """LLM yanıtının .content alanı sağlayıcıya göre değişir: Groq'ta düz
+    string, Gemini'de bazen parça listesi ([{"type": "text", "text": "…"}]
+    gibi) olabilir (api.py'deki /sohbet endpoint'inde de aynı durum ele
+    alınır). İkisini de düz metne çevirir."""
+    if isinstance(icerik, str):
+        return icerik
+    if isinstance(icerik, list):
+        parcalar = []
+        for p in icerik:
+            if isinstance(p, str):
+                parcalar.append(p)
+            elif isinstance(p, dict) and "text" in p:
+                parcalar.append(p["text"])
+        return "".join(parcalar)
+    return str(icerik)
 
 
 def _mesaji_coz(mekanlar, mesaj):
@@ -167,7 +221,7 @@ def _mesaji_coz(mekanlar, mesaj):
 
     try:
         yanit = _llm_al().invoke([("system", sistem), ("human", kullanici)])
-        metin = yanit.content.strip().replace("```json", "").replace("```", "").strip()
+        metin = _icerik_metni(yanit.content).strip().replace("```json", "").replace("```", "").strip()
         veri = json.loads(metin)
 
         ham_sure = veri.get("sure_saat")
@@ -206,8 +260,8 @@ def _mesaji_coz(mekanlar, mesaj):
             if filtrelenmis:
                 adaylar = filtrelenmis
                 kategoriler = sorted({m["tur"] for m in filtrelenmis})
-    except Exception:
-        pass  # LLM/parse hatasında güvenli varsayımlarla devam ederiz
+    except Exception as e:
+        print(f"[rota_motoru] Mesaj çözümlenemedi, varsayılanlara düşülüyor: {e!r}")
 
     if sure_saat is None:
         sure_saat = DEFAULT_SURE_SAAT
