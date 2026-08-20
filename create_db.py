@@ -21,9 +21,6 @@ def init_db():
         )
     ''')
 
-    # ... (Kodun geri kalanı yani listeler ve INSERT kısımları tamamen aynı kalacak)
-
-    # Eğer script birden fazla kez çalıştırılırsa verilerin tekrar etmemesi için tabloyu temizle
     cursor.execute('DELETE FROM mekanlar')
 
     # Tarihi ve Kültürel Mekanlar (tur = 'kültür')
@@ -114,7 +111,6 @@ def init_db():
     for mekan in doga_mekanlari:
         cursor.execute(insert_query, (mekan[0], mekan[1], mekan[2], mekan[3], 'doğa', mekan[4]))
 
-    # Değişiklikleri kaydet ve bağlantıyı kapat
     conn.commit()
     conn.close()
     print("Veritabanı 'kuzey_kapisi.db' başarıyla oluşturuldu ve veriler eklendi.")
@@ -122,22 +118,17 @@ def init_db():
 
 def view_data():
     try:
-        # Veritabanına bağlan
         conn = sqlite3.connect("kuzey_kapisi.db")
         cursor = conn.cursor()
 
-        # Tüm verileri seç
         cursor.execute("SELECT * FROM mekanlar")
         rows = cursor.fetchall()
 
-        # Tablo başlıklarını yazdır
         print(f"{'ID':<3} | {'Mekan Adı':<28} | {'Enlem':<9} | {'Boylam':<9} | {'Süre':<4} | {'Tür':<7} | {'Açıklama'}")
         print("-" * 115)
 
-        # Satırları döngüye alıp formatlı şekilde yazdır
         for row in rows:
             id_, ad, enlem, boylam, sure, tur, aciklama = row
-            # Açıklama çok uzunsa konsol görünümü için ilk 45 karakteri alıp sonuna ... ekle
             kisaltilmis_aciklama = (aciklama[:42] + '...') if len(aciklama) > 45 else aciklama
             print(
                 f"{id_:<3} | {ad:<28} | {enlem:<9.5f} | {boylam:<9.5f} | {sure:<4} | {tur:<7} | {kisaltilmis_aciklama}")
@@ -145,12 +136,11 @@ def view_data():
     except sqlite3.Error as e:
         print(f"Veritabanı okunurken hata oluştu: {e}")
     finally:
-        # Bağlantıyı kapat
         if conn:
             conn.close()
 
 
 if __name__ == '__main__':
-    init_db()  # Veritabanını oluştur ve verileri ekle
+    #init_db()  # Veritabanını oluştur ve verileri ekle
     print("\n--- Veritabanı İçeriği ---\n")
     view_data()  # Eklenen verileri göster

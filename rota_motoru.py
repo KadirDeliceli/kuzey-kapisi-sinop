@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 rota_motoru.py
---------------
-"Akıllı Zaman ve Rota Düzenleyici" (Kart 3) için motor.
+"Akıllı Zaman ve Rota Düzenleyici"  için motor.
 
 Akış:
   1) SQLite'taki (kuzeykapisi.db / mekanlar tablosu) tüm mekanlar okunur.
@@ -51,11 +49,11 @@ load_dotenv()
 # --- Ayarlar (gerekirse değiştir) ---
 KOK_DIZIN = Path(__file__).parent
 DB_YOLU = KOK_DIZIN / "kuzey_kapisi.db"   # <-- gerçek dosya adın farklıysa burayı değiştir
-ORTALAMA_HIZ_KMH = 32                     # kalibre edilebilir varsayım
-SABIT_VARIS_EKI_DK = 5                    # park etme / yürüme payı
+ORTALAMA_HIZ_KMH = 60                     # kalibre edilebilir varsayım
+SABIT_VARIS_EKI_DK = 15                    # park etme / yürüme payı
 DEFAULT_SURE_SAAT = 4.0                   # mesajda süre yoksa kullanılır
 SURE_MIN_SAAT = 0.5
-SURE_MAX_SAAT = 14.0
+SURE_MAX_SAAT = 15.0
 
 LLM_MODEL = "openai/gpt-oss-120b"
 

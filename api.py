@@ -1,25 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-api.py
-------
-Sinop Akıllı Turizm Platformu - FastAPI Sohbet Servisi (Aşama 2)
-
-Session tabanlı çalışır: her konuşma kendi session_id'sine sahiptir,
-geçmişi bot_engine'deki merkezi depoda ayrı tutulur. Böylece aynı anda
-birden fazla kişi (ör. 3 kişi Diyojen ile) konuşsa bile sohbetler karışmaz.
-
-Çalıştırma:
-    export GROQ_API_KEY="..."
-    uvicorn api:app --reload
-
-Endpoint'ler:
-    GET  /                 -> basit test arayüzü (tarayıcıdan test)
-    GET  /katalog          -> kategoriler ve öğeler
-    POST /oturum/baslat    -> yeni session açar, session_id döner
-    POST /sohbet           -> session_id + mesaj -> cevap
-    POST /oturum/kapat     -> session'ı kapatır
-"""
-
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -34,15 +12,10 @@ from rota_motoru import rota_olustur
 
 app = FastAPI(title="Sinop Akıllı Turizm API")
 
-
-# --- CORS AYARLARI BURAYA EKLENİR ---
-# React/Next.js uygulamanın bu API'ye erişebilmesi için gereklidir.
+# uygulamanın bu API'ye erişebilmesi için gereklidir.
 
 app.add_middleware(
     CORSMiddleware,
-    # Geliştirme sırasında Compose Web dev server portu (8080/8081/8082...) ve
-    # erişim adresi (localhost / 127.0.0.1 / PC'nin LAN IP'si) sık değişiyor.
-    # Regex ile localhost, 127.0.0.1 ve 192.168.x.x'ten HERHANGİ bir porta izin ver.
     allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}):\d+",
     allow_origins=[
         "http://localhost:3000",   # Next.js (varsa)
@@ -54,8 +27,8 @@ app.add_middleware(
 
 # İstek/yanıt modelleri
 class OturumBaslatIstek(BaseModel):
-    kategori: str          # ör. "lezzetler"
-    oge: str               # ör. "sinop_mantisi"
+    kategori: str          # "lezzetler"
+    oge: str               # "sinop_mantisi"
 
 
 class OturumBaslatYanit(BaseModel):
@@ -83,7 +56,7 @@ class RotaIstek(BaseModel):
     mesaj: str
 
 
-# Katalog (kategoriler + öğeler) — frontend menüyü buradan çizer
+#frontend menüyü buradan çizer
 @app.get("/katalog")
 def katalog_listele():
     sonuc = {}
@@ -151,8 +124,7 @@ def oturum_kapat(istek: OturumKapatIstek):
     return {"durum": "kapatildi", "session_id": istek.session_id}
 
 # --- GÖRSEL SUNUCUSU ---
-# Kural: görsel adı .md dosya adıyla birebir aynı, uzantı serbest (.jpg/.png/.webp denenir).
-# İstek: GET /gorseller/{kategori}/{kod}  (uzantı YAZMA — sunucu kendi bulur)
+#görsel adı .md dosya adıyla birebir aynı olmak zorunda.
 GORSELLER_DIZINI = Path(__file__).parent / "gorseller"
 GECERLI_GORSEL_KATEGORILERI = {"kisiler", "mekanlar", "lezzetler", "doga", "tescil", "kart"}
 GECERLI_UZANTILAR = (".jpg", ".jpeg", ".png", ".webp")
@@ -179,7 +151,6 @@ def rota_olustur_endpoint(istek: RotaIstek):
         raise HTTPException(status_code=500, detail=f"Rota oluşturulamadı: {e}")
 
 
-# Basit test arayüzü (tarayıcıdan iki sekme açıp karışma testi için)
 @app.get("/")
 def succes():
     return {

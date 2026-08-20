@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-katalog.py — OTOMATİK KEŞİF (Seviye 2)
---------------------------------------
+katalog.py — OTOMATİK KEŞİF
+
 Menü artık ELLE yazılmaz. Sistem kaynakca/ klasörünü tarar ve her .md
 dosyasından öğeyi OTOMATİK üretir.
 

@@ -1,19 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-bot_engine.py
---------------
-Sinop Akıllı Turizm Platformu - Bot Çekirdeği
-
-Bu dosya, sohbet mantığının ortak (tekrar etmeyen) kısmını barındırır:
-  - prompts.yaml'dan persona (system_message + kırmızı çizgiler) okuma
-  - kaynakca/*.md dosyasından bilgi (context) okuma
-  - LangChain + Groq/Gemini ile sohbet zinciri kurma
-  - basit oturum içi hafıza (sadece o karakterle konuşulurken)
-
-
-main.py bu fonksiyonları çağırır. Böylece 4 kategori fonksiyonu sade kalır.
-"""
-
 import os
 import yaml
 
@@ -23,39 +7,24 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
 load_dotenv()
-# ------------------------------------------------------------------
-# Ayarlar
-# ------------------------------------------------------------------
+
 KOK_DIZIN = os.path.dirname(os.path.abspath(__file__))
 PROMPTS_YOLU = os.path.join(KOK_DIZIN, "prompts.yaml")
 KAYNAKCA_DIZIN = os.path.join(KOK_DIZIN, "kaynakca")
 
-# ------------------------------------------------------------------
-# MODEL SAĞLAYICI SEÇİMİ (TEK YERDEN)
-# ------------------------------------------------------------------
-# Buradaki tek değişkeni değiştirerek tüm yapıyı Groq veya Gemini'ye
-# geçirebilirsin. Geri kalan hiçbir fonksiyona dokunmana gerek yok;
-# hepsi _llm() üzerinden bu ayarı kullanır.
-#
-#   SAGLAYICI = "groq"    -> Groq (GROQ_API_KEY gerekir)
-#   SAGLAYICI = "gemini"  -> Gemini (GOOGLE_API_KEY gerekir)
+
 SAGLAYICI = "groq"
 
-# Gemini model tercihi
 GEMINI_MODEL = "gemini-flash-latest"
 
-# Groq model tercihi:
-#   - "llama-3.3-70b-versatile" : daha güçlü/tutarlı (persona için önerilir)
-#   - "llama-3.1-8b-instant"    : daha hızlı ve ucuz
-#   - "openai/gpt-oss-120b"     : mevcut tercih
+
 GROQ_MODEL = "openai/gpt-oss-120b"
+#   - "llama-3.1-8b-instant"
+#   - "openai/gpt-oss-120b"
 
-SICAKLIK = 0.5  # persona canlılığı ile tutarlılık dengesi (dil sapmasını azaltır)
+SICAKLIK = 0.5
 
 
-# ------------------------------------------------------------------
-# prompts.yaml yükleme (bir kez okunur, tekrar tekrar açılmaz)
-# ------------------------------------------------------------------
 def prompts_yukle():
     with open(PROMPTS_YOLU, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -72,9 +41,6 @@ def persona_getir(kategori, persona_adi):
     return system_message, kirmizi
 
 
-# ------------------------------------------------------------------
-# .md kaynak yükleme (context)
-# ------------------------------------------------------------------
 def kaynak_oku(alt_klasor, dosya_adi):
     """kaynakca/<alt_klasor>/<dosya_adi>.md içeriğini döndürür."""
     yol = os.path.join(KAYNAKCA_DIZIN, alt_klasor, dosya_adi + ".md")
@@ -84,9 +50,6 @@ def kaynak_oku(alt_klasor, dosya_adi):
         return f.read().strip()
 
 
-# ------------------------------------------------------------------
-# LLM (tek örnek yeterli)
-# ------------------------------------------------------------------
 def llm_getir():
     """
     SAGLAYICI ayarına göre uygun LLM örneğini döndürür.
@@ -117,7 +80,7 @@ def llm_getir():
         )
 
 
-LLM = None  # ilk sohbette kurulur (lazy)
+LLM = None  # ilk sohbette kurulur
 
 
 def _llm():
@@ -127,9 +90,6 @@ def _llm():
     return LLM
 
 
-# ------------------------------------------------------------------
-# İÇERİK NORMALİZASYONU (Gemini/LangChain format filtresi)
-# ------------------------------------------------------------------
 def _icerik_metne(icerik):
     """
     LLM cevabının .content alanını HER ZAMAN düz metne (string) çevirir.
@@ -161,9 +121,6 @@ def _icerik_metne(icerik):
     return str(icerik)
 
 
-# ------------------------------------------------------------------
-# System prompt'u derleme: persona + kırmızı çizgiler + context
-# ------------------------------------------------------------------
 def system_prompt_derle(system_message, kirmizi, context):
     """
     persona'nın system_message'ındaki {context} yerine .md bilgisini koyar,
@@ -173,21 +130,20 @@ def system_prompt_derle(system_message, kirmizi, context):
     return govde.strip() + "\n\n" + kirmizi.strip()
 
 
-# ------------------------------------------------------------------
-# SESSION (OTURUM) TABANLI HAFIZA DEPOSU
-# ------------------------------------------------------------------
-# Konuşma geçmişi artık tek bir yerel değişkende değil, session_id'ye
-# göre AYRI kutularda tutulur. Böylece aynı anda birden fazla kişi
-# (ör. 3 kişi Diyojen ile) konuşsa bile geçmişleri karışmaz.
-#
-# Yapı:
-#   _OTURUMLAR = {
-#       "abc123": {"baslik": "...", "mesajlar": [SystemMessage, ...]},
-#       "def456": {...},
-#   }
-#
-# Not: Bu depo şu an RAM'dedir (uçucu). Program kapanınca silinir.
-# Kalıcılık (SQLite vb.) sonraki aşamaya aittir.
+"""
+Konuşma geçmişi artık tek bir yerel değişkende değil, session_id'ye
+göre AYRI kutularda tutulur. Böylece aynı anda birden fazla kişi 
+(ör. 3 kişi Diyojen ile) konuşsa bile geçmişleri karışmaz.
+
+Yapı:
+  _OTURUMLAR = {
+      "abc123": {"baslik": "...", "mesajlar": [SystemMessage, ...]},
+      "def456": {...},
+  }
+
+Not: Bu depo şu an RAM'dedir (uçucu). Program kapanınca silinir.
+Kalıcılık (SQLite vb.) sonraki aşamaya aittir.
+"""
 
 import uuid
 
@@ -245,9 +201,8 @@ def cevap_uret(session_id, kullanici_mesaji):
     return metin
 
 
-# ------------------------------------------------------------------
-# Tek bir karakterle sohbet döngüsü (while True) — KONSOL için
-# ------------------------------------------------------------------
+# KONSOL denemesi için
+
 def sohbet_dongusu(baslik, system_prompt, karsilama=None):
     """
     Seçilen karakterle terminalde sohbet eder.
@@ -285,13 +240,9 @@ def sohbet_dongusu(baslik, system_prompt, karsilama=None):
 
         print(f"\n{baslik}: {metin}\n")
 
-    # Konuşma bitti: oturumu bellekten temizle
     oturum_kapat(session_id)
 
 
-# ------------------------------------------------------------------
-# Kolaylaştırıcı: kaynak + persona verince doğrudan sohbete sokar
-# ------------------------------------------------------------------
 def karakterle_sohbet(baslik, kategori, persona_adi, alt_klasor, dosya_adi,
                       karsilama=None):
     """
@@ -304,13 +255,11 @@ def karakterle_sohbet(baslik, kategori, persona_adi, alt_klasor, dosya_adi,
     sohbet_dongusu(baslik, system_prompt, karsilama)
 
 
-# ------------------------------------------------------------------
-# API/DIŞ KULLANIM İÇİN KOLAYLAŞTIRICI (ileride FastAPI çağıracak)
-# ------------------------------------------------------------------
+
 def oturum_baslat(kategori, persona_adi, alt_klasor, dosya_adi, baslik=None):
     """
     Konsol döngüsü OLMADAN bir oturum açar ve session_id döndürür.
-    İleride API şunu yapacak:
+    API şunu yapacak:
         sid = oturum_baslat("kisiler","filozof_diyojen","kisiler","diyojen")
         cevap = cevap_uret(sid, "merhaba")
         cevap = cevap_uret(sid, "adım Kadir")   # aynı sid -> aynı geçmiş
