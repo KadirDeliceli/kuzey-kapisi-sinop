@@ -165,14 +165,12 @@ def rota_yeri_ekle(
     enlem: float,
     boylam: float,
     sure_dk: int,
-    tur: str,
     aciklama: str,
 ) -> int:
     ad = (ad or "").strip()
-    tur = (tur or "").strip()
     aciklama = (aciklama or "").strip()
-    if not ad or not tur or not aciklama:
-        raise AdminHatasi("'ad', 'tur' ve 'aciklama' alanları boş olamaz.")
+    if not ad or not aciklama:
+        raise AdminHatasi("'ad' ve 'aciklama' alanları boş olamaz.")
     if sure_dk is None or sure_dk <= 0:
         raise AdminHatasi("'sure_dk' sıfırdan büyük bir sayı olmalı.")
 
@@ -181,9 +179,9 @@ def rota_yeri_ekle(
     con = sqlite3.connect(DB_YOLU)
     try:
         imlec = con.execute(
-            "INSERT INTO mekanlar (ad, enlem, boylam, sure_dk, tur, aciklama) "
-            "VALUES (?, ?, ?, ?, ?, ?)",
-            (ad, enlem, boylam, sure_dk, tur, aciklama),
+            "INSERT INTO mekanlar (ad, enlem, boylam, sure_dk, aciklama) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (ad, enlem, boylam, sure_dk, aciklama),
         )
         con.commit()
         return imlec.lastrowid

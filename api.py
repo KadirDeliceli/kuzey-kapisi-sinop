@@ -9,7 +9,7 @@ import bot_engine
 import katalog
 from fastapi.responses import FileResponse
 from pathlib import Path
-from rota_motoru import rota_olustur
+import rota_motoru
 from fastapi import Form, File, UploadFile, Header, Depends
 import admin_motoru
 
@@ -57,7 +57,8 @@ class OturumKapatIstek(BaseModel):
 class RotaIstek(BaseModel):
     enlem: float
     boylam: float
-    mesaj: str
+    sure_saat: int
+    turler: list[str] = []
 
 
 #frontend menüyü buradan çizer
@@ -147,12 +148,25 @@ def gorsel_getir(kategori: str, kod: str):
 
 @app.post("/rota/olustur")
 def rota_olustur_endpoint(istek: RotaIstek):
-    if not istek.mesaj.strip():
-        raise HTTPException(status_code=400, detail="Mesaj boş olamaz.")
     try:
-        return rota_olustur(istek.enlem, istek.boylam, istek.mesaj)
+        return rota_motoru.rota_olustur(istek.enlem, istek.boylam, istek.sure_saat, istek.turler)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Rota oluşturulamadı: {e}")
+
+
+@app.get("/rota/varsayilanlar")
+def rota_varsayilanlar_endpoint(enlem: float, boylam: float):
+    try:
+        return {"rotalar": rota_motoru.varsayilan_rotalar_olustur(enlem, boylam)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Varsayılan rotalar oluşturulamadı: {e}")
+
+
+@app.get("/rota/kategoriler")
+def rota_kategoriler_endpoint():
+    return rota_motoru.kategori_bilgileri()
 
 
 # --- ADMIN ---
@@ -211,18 +225,14 @@ class RotaYerEkleIstek(BaseModel):
     enlem: float
     boylam: float
     sure_dk: int
-    tur: str
     aciklama: str
 
 
 @app.post("/admin/rota-yer-ekle")
-def admin_rota_yer_ekle(
-    istek: RotaYerEkleIstek,
-    _yetki: bool = Depends(admin_yetki_kontrol),
-):
+def admin_rota_yer_ekle(istek: RotaYerEkleIstek, _yetki: bool = Depends(admin_yetki_kontrol)):
     try:
         yeni_id = admin_motoru.rota_yeri_ekle(
-            istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.tur, istek.aciklama
+            istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.aciklama
         )
     except admin_motoru.AdminHatasi as e:
         raise HTTPException(status_code=400, detail=str(e))

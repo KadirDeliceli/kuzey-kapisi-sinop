@@ -138,6 +138,6 @@ def view_data():
 
 
 if __name__ == '__main__':
-    init_db()  # Veritabanını oluştur ve verileri ekle
+    #()  # Veritabanını oluştur ve verileri ekle
     print("\n--- Veritabanı İçeriği ---\n")
     view_data()  # Eklenen verileri göster
