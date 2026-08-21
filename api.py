@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
@@ -8,6 +10,8 @@ import katalog
 from fastapi.responses import FileResponse
 from pathlib import Path
 from rota_motoru import rota_olustur
+from fastapi import Form, File, UploadFile, Header, Depends
+import admin_motoru
 
 
 app = FastAPI(title="Sinop Akıllı Turizm API")
@@ -149,6 +153,80 @@ def rota_olustur_endpoint(istek: RotaIstek):
         return rota_olustur(istek.enlem, istek.boylam, istek.mesaj)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Rota oluşturulamadı: {e}")
+
+
+# --- ADMIN ---
+
+class AdminGirisIstek(BaseModel):
+    kullanici_adi: str
+    sifre: str
+
+
+@app.post("/admin/giris")
+def admin_giris(istek: AdminGirisIstek):
+    try:
+        token = admin_motoru.giris_yap(istek.kullanici_adi, istek.sifre)
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=401, detail=str(e))
+    return {"token": token}
+
+
+def admin_yetki_kontrol(x_admin_token: str = Header(..., alias="X-Admin-Token")):
+    if not admin_motoru.token_gecerli_mi(x_admin_token):
+        raise HTTPException(
+            status_code=401,
+            detail="Geçersiz ya da süresi dolmuş oturum. Lütfen tekrar giriş yapın.",
+        )
+    return True
+
+
+@app.post("/admin/cikis")
+def admin_cikis(x_admin_token: str = Header(..., alias="X-Admin-Token")):
+    admin_motoru.cikis_yap(x_admin_token)
+    return {"durum": "cikis_yapildi"}
+
+
+@app.post("/admin/persona-ekle")
+async def admin_persona_ekle(
+    kategori: str = Form(...),
+    ad: str = Form(...),
+    karsilama: str = Form(...),
+    icerik: str = Form(...),
+    kod: str = Form(None),
+    gorsel: UploadFile = File(...),
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    gorsel_bytes = await gorsel.read()
+    gorsel_uzanti = os.path.splitext(gorsel.filename or "")[1]
+    try:
+        return admin_motoru.persona_ekle(
+            kategori, ad, karsilama, icerik, kod, gorsel_bytes, gorsel_uzanti
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+class RotaYerEkleIstek(BaseModel):
+    ad: str
+    enlem: float
+    boylam: float
+    sure_dk: int
+    tur: str
+    aciklama: str
+
+
+@app.post("/admin/rota-yer-ekle")
+def admin_rota_yer_ekle(
+    istek: RotaYerEkleIstek,
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    try:
+        yeni_id = admin_motoru.rota_yeri_ekle(
+            istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.tur, istek.aciklama
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {"id": yeni_id, "durum": "eklendi"}
 
 
 @app.get("/")

@@ -16,7 +16,6 @@ def init_db():
             enlem REAL NOT NULL,
             boylam REAL NOT NULL,
             sure_dk INTEGER NOT NULL,
-            tur TEXT NOT NULL,
             aciklama TEXT NOT NULL
         )
     ''')
@@ -26,8 +25,8 @@ def init_db():
     # Tarihi ve Kültürel Mekanlar (tur = 'kültür')
     # Format: (Ad, Enlem, Boylam, Süre, Açıklama)
     kultur_mekanlari = [
-        ("Alaaddin Camii", 42.02639, 35.14833, 30,
-         "Sinop merkezde yer alan, Selçuklu mimarisinin en güzel örneklerinden biri olan tarihi ulu camidir."),
+        ("Alaaddin Camii - İsfendiyaroğulları Türbesi", 42.02639, 35.14833, 30,
+         "Sinop merkezde yer alan, Selçuklu mimarisinin en güzel örneklerinden biri olan tarihi ulu camidir.Candaroğulları beyliğine ait tarihi ve mimari öneme sahip zarif bir anıt mezarıda buradadır."),
         ("Balatlar Kilisesi", 42.02610, 35.15720, 45,
          "Sinop merkezde bulunan, Roma ve Bizans dönemlerinden kalma, tarihi freskleriyle dikkat çeken yapı kompleksidir."),
         ("Boyabat Kalesi", 41.466468583929625, 34.76203977903898, 120,
@@ -40,8 +39,6 @@ def init_db():
          "Gerze ilçe merkezinde yer alan, geleneksel sivil Türk mimarisinin estetik detaylarını barındıran tarihi konaktır."),
         ("İnceburun Deniz Feneri", 42.09794921112268, 34.94500709584895, 90,
          "Türkiye'nin en kuzey ucunda yer alan, hırçın Karadeniz manzarasına hakim 19. yüzyıldan kalma sembolik deniz feneridir."),
-        ("İsfendiyaroğulları Türbesi", 42.02682715867128, 35.14867131330844, 30,
-         "Sinop merkezde, Candaroğulları beyliğine ait tarihi ve mimari öneme sahip zarif bir anıt mezardır."),
         ("Korucuk Tabyası", 42.00580850324528, 35.1148121615561, 45,
          "Sinop'u denizden gelebilecek tehlikelere karşı korumak amacıyla inşa edilmiş, tarihi bir Osmanlı savunma yapısıdır."),
         ("Paşa Tabyaları", 42.01722733727293, 35.180676757898055, 60,
@@ -103,13 +100,13 @@ def init_db():
     ]
 
     # Verileri tabloya ekle
-    insert_query = "INSERT INTO mekanlar (ad, enlem, boylam, sure_dk, tur, aciklama) VALUES (?, ?, ?, ?, ?, ?)"
+    insert_query = "INSERT INTO mekanlar (ad, enlem, boylam, sure_dk, aciklama) VALUES (?, ?, ?, ?, ?)"
 
     for mekan in kultur_mekanlari:
-        cursor.execute(insert_query, (mekan[0], mekan[1], mekan[2], mekan[3], 'kültür', mekan[4]))
+        cursor.execute(insert_query, (mekan[0], mekan[1], mekan[2], mekan[3], mekan[4]))
 
     for mekan in doga_mekanlari:
-        cursor.execute(insert_query, (mekan[0], mekan[1], mekan[2], mekan[3], 'doğa', mekan[4]))
+        cursor.execute(insert_query, (mekan[0], mekan[1], mekan[2], mekan[3], mekan[4]))
 
     conn.commit()
     conn.close()
@@ -124,14 +121,14 @@ def view_data():
         cursor.execute("SELECT * FROM mekanlar")
         rows = cursor.fetchall()
 
-        print(f"{'ID':<3} | {'Mekan Adı':<28} | {'Enlem':<9} | {'Boylam':<9} | {'Süre':<4} | {'Tür':<7} | {'Açıklama'}")
+        print(f"{'ID':<3} | {'Mekan Adı':<28} | {'Enlem':<9} | {'Boylam':<9} | {'Süre':<4}  | {'Açıklama'}")
         print("-" * 115)
 
         for row in rows:
-            id_, ad, enlem, boylam, sure, tur, aciklama = row
+            id_, ad, enlem, boylam, sure, aciklama = row
             kisaltilmis_aciklama = (aciklama[:42] + '...') if len(aciklama) > 45 else aciklama
             print(
-                f"{id_:<3} | {ad:<28} | {enlem:<9.5f} | {boylam:<9.5f} | {sure:<4} | {tur:<7} | {kisaltilmis_aciklama}")
+                f"{id_:<3} | {ad:<28} | {enlem:<9.5f} | {boylam:<9.5f} | {sure:<4} | {kisaltilmis_aciklama}")
 
     except sqlite3.Error as e:
         print(f"Veritabanı okunurken hata oluştu: {e}")
@@ -141,6 +138,6 @@ def view_data():
 
 
 if __name__ == '__main__':
-    #init_db()  # Veritabanını oluştur ve verileri ekle
+    init_db()  # Veritabanını oluştur ve verileri ekle
     print("\n--- Veritabanı İçeriği ---\n")
     view_data()  # Eklenen verileri göster
