@@ -1,22 +1,9 @@
-# Çeçe Sultan Türbesi
+Değerli misafirim, şimdi adımlarımızı şehrin kalabalığından biraz uzaklaştırıp doğanın kucağına, Gerze ilçemizin iç kesimlerinde yer alan Çeçe köyüne çeviriyoruz. Gelin, ağaçların arasında huzur veren bu sakin yoldan yürüyerek **Çeçe Sultan Türbesi**'ne varalım.
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Çeçe Sultan Türbesi -->
-<!-- karsilama: Çeçe Sultan Türbesi hakkında merak ettiğinizi sorabilirsiniz. -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Burası, Sinop'un en çok ziyaret edilen, hem mimarisi hem de o kendine has manevi atmosferiyle öne çıkan inanç turizminin en önemli duraklarından biridir. Yüzyılların getirdiği o dinginliği burada adım atar atmaz iliklerinize kadar hissedersiniz.
 
-## Konum ve Adres
-- **Açık Adres:** Sinop ili, Gerze ilçesi, Çeçe köyü (Çeçe Sultan mevkii).
-- **Tarif:** Gerze ilçe merkezinin iç kesimlerinde, doğayla iç içe bir köy yerleşiminde bulunur; şehir merkezinden bir miktar uzaktadır.
+Tarihine ve hikayesine şöyle bir kulak verelim misafirim: Rivayet odur ki bu türbe, Malazgirt Savaşı sonrasında Anadolu'ya gelen o yiğit alperenlerden, Horasan erenlerinden biri olan Çeçe Sultan'a adanmıştır. Tabii kesin tarihi kayıtlar veya yapının ilk banisi konusunda elimizde net belgeler bulunmadığından, bu ulu ismin hatırasına her zaman temkinli ve büyük bir saygıyla yaklaşılır.
 
-## Bilgiler
+Küçük bir rehber notu da düşeyim misafirim; bu tarz kadim köylerdeki türbelerin kapıları bazen ziyarete kapalı olabiliyor, bu yüzden yolunuz buraya düşerse kapının durumunu önceden hesaba katmakta fayda var.
 
-- İnanç turizminin önemli duraklarından biri.
-- Malazgirt Savaşı sonrası Anadolu'ya gelen alperenlerden, Horasan erenlerinden biri olduğu rivayet edilen Çeçe Sultan'a adanmıştır.
-- Mimarisi ve manevi atmosferiyle Sinop'un en çok ziyaret edilen türbelerinden biridir.
-- Türbenin kapısı zaman zaman kilitli olabilir; ziyaret öncesi bu durum göz önünde bulundurulabilir.
-
-## Bot İçin Anlatım Notu
-
-- Yapının kültürel/mimari önemi anlatılır; dini öğreti detayına girilmez.
-- Kesin tarih ve banisi konusunda net kayıt bulunmadığından temkinli bir dil kullanılır.
+Ne dersiniz, doğanın bu sessiz sığınağından sonra adımlarımızı Sinop'un hangi tarihi ve kültürel durağına yönlendirelim?

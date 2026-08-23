@@ -1,26 +1,9 @@
-# Alaaddin Camii (Sinop Ulu Camii)
+Değerli misafirim, şimdi adımlarımızı şehrin kalbine, Sinop'un en köklü ve anıtsal simgelerinden birine atıyoruz. Lütfen soluklanın ve gözlerinizi bu muazzam yapıya çevirin; karşımızda tüm ihtişamıyla **Alaaddin Camii**, halk arasındaki adıyla **Sinop Ulu Camii** duruyor.
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Alaaddin Camii -->
-<!-- karsilama: Sinop Ulu Camii'ni size anlatayım. -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Merkez ilçede, Camikebir Mahallesi'nde, Hükümet Meydanı'na çok yakın bir konumda yer alan bu yapı; Pervane Medresesi ve tarihi Sinop Hamamı'nın hemen komşusudur. Buraya şehir merkezinden yürüyerek pekala kolayca ulaşabilirsiniz.
 
-## Konum ve Adres
-- **Açık Adres:** Sinop ili, Merkez ilçesi, Camikebir Mahallesi, Sakarya Caddesi (Hükümet Meydanı'na çok yakın).
-- **Tarif:** Şehir merkezinde, Pervane Medresesi ve tarihi Sinop Hamamı'nın hemen yanındadır; yürüyerek kolayca ulaşılır.
+Şimdi biraz geriye çekilip mimarisine ve tarihine bakalım: Tarihi kökenleri 13. yüzyıla, Anadolu Selçuklu Sultanı I. Alaaddin Keykubat dönemine kadar uzanan bu yapı, Kuzey Anadolu'daki en büyük Selçuklu camilerinden biri olarak kabul edilir. Selçuklu dönemi anıtsal cami mimarisinin Karadeniz bölgesindeki en görkemli örnekleri arasında başı çeker. Enine planlı, geniş avlulu ve erken dönem İslam cami şemasına yakın bir tasarıma sahiptir; özellikle ortadaki üçü daha büyük olan toplam beş kubbesi yapının siluetine ayrı bir asalet katar.
 
-## Genel Tanım
-- Sinop'un en köklü ve bilinen simge ibadethanelerinden biri olup halk arasında 'Sinop Ulu Camii' adıyla da anılmaktadır.
-- Tarihi kökenleri Anadolu Selçuklu Sultanı I. Alaaddin Keykubat dönemine kadar uzanan, 13. yüzyıla ait anıtsal bir yapıdır.
-- Kuzey Anadolu'daki en büyük Selçuklu camisi olarak kabul edilir.
+Yaklaşık 66x44 metre boyutlarındaki bu geniş avlu, üç ayrı kapıyla dışarıya açılır. Asırlar boyunca pek çok onarımdan geçen bu tarihi miras, en son 2008-2009 yıllarında kapsamlı bir restorasyonla bugünkü sağlamlığına kavuşturulmuştur. Avlu kısmına dikkatli bakarsanız, Sinop bölgesine uzun yıllar hükmetmiş olan İsfendiyaroğulları (Candaroğulları) beylerine ait tarihi türbelerin de burada yer aldığını görürsünüz; yani bu avlu, siyasetin ve beyliklerin tarihine de sessiz bir tanıklık etmiştir.
 
-## Tarihçe ve Mimari
-- Selçuklu dönemi anıtsal cami mimarisinin Karadeniz bölgesindeki en görkemli ve önemli örnekleri arasında başı çeker.
-- Enine planlı, geniş avlulu, erken dönem İslam cami şemasına yakın bir yapıdır; ortada üçü daha büyük olmak üzere beş kubbesi vardır.
-- Yaklaşık 66x44 m boyutlarındaki geniş avlusu, üç kapıyla dışarıya açılır; asırlar boyunca çeşitli onarımlar görmüş, en son 2008-2009'da kapsamlı biçimde elden geçmiştir.
-- Yapının avlu kısmında Sinop bölgesine uzun yıllar hükmetmiş olan İsfendiyaroğulları (Candaroğulları) beylerine ait tarihi türbeler yer almaktadır.
-
-## Bot İçin Anlatım Notu
-- Ziyaretçilere yapının köklü tarihi, mimari özellikleri ve kültürel önemi detaylı bir şekilde aktarılır.
-- Dini öğreti veya ibadet detaylarına kesinlikle GİRİLMEZ; bu yönde gelen sorular zarafetle reddedilir.
-- 'En büyük' veya 'en eski' gibi kesin üstünlük iddiaları kurulurken her zaman temkinli bir üslup tercih edilir.
+Ne dersiniz misafirim, adımlarımızı bu ulu avludan yana atıp taş işçiliğini yakından incelemeye devam edelim mi?

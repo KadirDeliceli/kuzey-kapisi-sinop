@@ -1,24 +1,9 @@
-# Terelek ve Salar Köyü Kaya Mezarları
+Değerli misafirim, şimdi adımlarımızı toprağın, kayanın ve antik çağların en gizemli mirasına, adeta zamanın elleriyle yontulmuş iki ayrı müstesna noktaya çeviriyoruz. Karşımızda Terelek Kaya Mezarları ve Salar Köyü Kaya Mezarlığı duruyor!
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Terelek ve Salar Köyü Kaya Mezarları -->
-<!-- karsilama: Terelek ve Salar Köyü Kaya Mezarları hakkında merak ettiğinizi sorabilirsiniz. -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Gelin bu iki kadim alanı yakından incelemeden önce konumları hakkında ufak bir coğrafi not düşeyim misafirim: Her ne kadar isimleri çoğu zaman yan yana, birlikte anılsa da, bu iki tarihi miras iki ayrı ilçemizde yer alır. **Terelek Kaya Mezarı**, Durağan ilçemizin Kemerbahçe köyü sınırlarında, ilçe merkezine yaklaşık 15 kilometre mesafede sarp bir kayalıkta bulunur; **Salar Köyü Kaya Mezarları** ise Boyabat ilçemizin Salar köyü tarafındadır. Yani aralarında mesafe olan iki ayrı kırsal rotadan bahsediyoruz.
 
-## Konum ve Adres
+Tarihine ve arkeolojik değerine şöyle bir uzandığımızda misafirim; kayalara büyük bir maharetle oyulmuş bu anıtsal mezarların, geçmişte o bölgede yaşamış statüsü yüksek, önemli kişiler için yapıldığı düşünülmektedir. Antik çağlardan günümüze kadar ulaşmayı başarmış bu eserler, yaklaşık milattan önce 7. yüzyıla, Paflagonya dönemine tarihlenir. Cephelerindeki sütun kalıntıları ve kabartma figür izleri, dönemin inanç kültürüne, sanat anlayışına ve mimari becerisine ışık tutan paha biçilmez izlerdir.
 
-- **Terelek Kaya Mezarı:** Sinop ili, Durağan ilçesi, Kemerbahçe köyü (Kepez/Terelek kayası mevkii); Durağan ilçe merkezine yaklaşık 15 km.
-- **Salar Köyü Kaya Mezarları:** Sinop ili, Boyabat ilçesi, Salar köyü.
-- **Tarif:** İki mezar farklı ilçelerdedir; ikisi de köy yollarıyla ulaşılan, kırsal ve sarp konumlardadır. Terelek'e çıkış dik bir yamaç gerektirir.
+Rehberiniz olarak küçük ama önemli bir pratik uyarı yapayım misafirim: Bu tarihi alanlar köy yollarıyla ulaşılan kırsal konumlardadır ve özellikle Terelek'e çıkış dik bir yamaç tırmanmayı gerektirir. Alanlar tamamen korunaklı modern müzeler gibi olmadığından, buraları ziyaret ederken yol ve yürüyüş koşullarına dikkat etmenizde, kırsal şartları göz önünde bulundurmanızda büyük fayda var.
 
-## Bilgiler
-
-- Kayalara oyulmuş anıtsal mezarlardır; statüsü yüksek kişiler için yapıldıkları düşünülür.
-- Antik çağlardan günümüze ulaşmış önemli arkeolojik miraslardır; Paflagonya dönemine, yaklaşık M.Ö. 7. yüzyıla tarihlenirler.
-- Bölgenin antik dönem yerleşim ve inanç kültürüne ışık tutarlar; cephelerinde sütun ve kabartma figür izleri görülebilir.
-- Not: Terelek ile Salar iki ayrı ilçededir (Terelek Durağan'da, Salar Boyabat'ta); ikisi çoğu zaman birlikte anılır.
-
-## Bot İçin Anlatım Notu
-
-- Mezarların arkeolojik değeri ve dönemi anlatılır; konum sorulduğunda iki ayrı ilçe olduğu net biçimde belirtilir.
-- Ulaşımın zor ve kırsal olduğu, alanların korumasız olabileceği nazikçe hatırlatılabilir.
+Ne dersiniz misafirim, antik çağların kayalara kazınmış bu sessiz tanıklarından sonra adımlarımızı Sinop'un hangi büyüleyici köşesine yönlendirelim?

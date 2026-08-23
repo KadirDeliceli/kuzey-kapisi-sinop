@@ -73,6 +73,9 @@ def _meta_oku(dosya_yolu):
 
 def _katalog_kur():
     """kaynakca/ klasörünü tarayıp KATALOG sözlüğünü otomatik üretir."""
+
+    ANLATIM_DIZIN = os.path.join(KOK_DIZIN, "anlatim")
+
     katalog = {}
     for klasor in sorted(os.listdir(KAYNAKCA_DIZIN)):
         kdir = os.path.join(KAYNAKCA_DIZIN, klasor)
@@ -92,12 +95,15 @@ def _katalog_kur():
                 # persona bulunamadıysa bu dosya menüye alınmaz (bozuk/eksik)
                 continue
 
+            anlatim_yolu = os.path.join(ANLATIM_DIZIN, klasor, dosya_kodu + ".md")
+
             ogeler[dosya_kodu] = {
                 "ad": meta["ad"] or dosya_kodu,
                 "persona": meta["persona"],
                 "klasor": klasor,
                 "dosya": dosya_kodu,
                 "karsilama": meta["karsilama"],
+                "anlatim_var": os.path.isfile(anlatim_yolu),
             }
 
         if ogeler:

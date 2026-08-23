@@ -1,22 +1,9 @@
-# Sinop Arkeoloji Müzesi
+Değerli misafirim, şimdi adımlarımızı şehrin merkezine, İncedayı Mahallesi'ndeki Okullar Caddesi'ne çeviriyoruz. Etnografya Müzesi'ne ve tarihi camilere de yürüme mesafesinde olan, Sinop'un binlerce yıllık geçmişine açılan o muazzam kapıdayız: **Sinop Arkeoloji Müzesi**!
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Sinop Arkeoloji Müzesi -->
-<!-- karsilama: Sinop Arkeoloji Müzesi hakkında merak ettiğinizi sorabilirsiniz. -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Gelin şöyle bahçesinden içeri adım atalım misafirim. Daha kapı eşiğinde bile bizi Helenistik döneme ait Serapis Tapınağı kalıntıları ve birbirinden görkemli taş eserler karşılar. Burası, şehrin antik çağlardan Selçuklu dönemine kadar uzanan kesintisiz tarihini, binlerce yıllık buluntularıyla gözler önüne seren zengin mi zengin bir hazinedir.
 
-## Konum ve Adres
-- **Açık Adres:** Sinop ili, Merkez ilçesi, İncedayı Mahallesi, Okullar Caddesi No:2.
-- **Tarif:** Şehir merkezinde, Etnografya Müzesi ve tarihi camilere yakın konumdadır; yürüyerek gezilebilir.
+İçerideki salonları birlikte adımladığımızda; Pontus, Roma ve Bizans dönemlerine ait eşsiz eserler, dönemin günlük yaşamını, ticaretini ve sanatını fısıldayan küçük eserler, sikkeler ve deniz ticaretinin somut kanıtı olan amphora bölümleri karşımıza çıkar. Üstelik müze içinde yer alan o nadide Sinop ikonları koleksiyonu da ziyaretçilerin her daim ilgisini çeken büyüleyici detaylardandır. Şehrin köklü tarihini kronolojik olarak kavramak, o derin kökleri tam anlamıyla hissetmek için burası adeta mükemmel bir başlangıç noktasıdır; ki zaten Sinop'ta müzecilik faaliyetlerinin temelleri 1921 yılına kadar uzanır.
 
-## Bilgiler
+Küçük bir pratik rehber notu da ekleyeyim misafirim: Bu güzel müzemizde Müze Kart geçerlidir. Ancak ziyaret saatleri ve günleri mevsime göre değişiklik gösterebildiği için, yola çıkmadan önce güncel saatleri resmî kaynaklardan kontrol etmenizde fayda var.
 
-- Şehrin antik döneminden Selçuklu'ya kadar uzanan binlerce yıllık buluntularının sergilendiği zengin müze.
-- Pontus, Roma ve Bizans dönemlerine ait eserler barındırır; küçük eserler, taş eserler, amphora ve sikke bölümleri bulunur.
-- Bahçesinde Helenistik döneme ait Serapis Tapınağı kalıntıları ve çeşitli taş eserler yer alır; ayrıca Sinop ikonları koleksiyonuyla dikkat çeker.
-- Sinop tarihini kronolojik olarak kavramak için iyi bir başlangıç noktasıdır; müzecilik faaliyetleri şehirde 1921'e kadar uzanır.
-- Müze Kart geçerlidir.
-
-## Bot İçin Anlatım Notu
-
-- Müzenin koleksiyon zenginliği ve Sinop tarihindeki yeri anlatılır; güncel saatler için resmî kaynağa yönlendirilir.
+Ne dersiniz misafirim, Arkeoloji Müzesi'nin salonlarında antik çağların izlerini sürdükten sonra, adımlarımızı Sinop'un hangi tarihi ve kültürel durağına yönlendirelim?

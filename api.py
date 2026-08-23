@@ -69,7 +69,7 @@ def katalog_listele():
         sonuc[kat_kodu] = {
             "ad": kat["ad"],
             "ogeler": [
-                {"kod": oge_kodu, "ad": oge["ad"]}
+                {"kod": oge_kodu, "ad": oge["ad"], "anlatim_var": oge.get("anlatim_var", False)}
                 for oge_kodu, oge in kat["ogeler"].items()
             ],
         }
@@ -237,6 +237,18 @@ def admin_rota_yer_ekle(istek: RotaYerEkleIstek, _yetki: bool = Depends(admin_ye
     except admin_motoru.AdminHatasi as e:
         raise HTTPException(status_code=400, detail=str(e))
     return {"id": yeni_id, "durum": "eklendi"}
+
+
+ANLATIM_DIZINI = Path(__file__).parent / "anlatim"
+
+@app.get("/anlatim/{kategori}/{kod}")
+def anlatim_getir(kategori: str, kod: str):
+    if "/" in kod or "\\" in kod or ".." in kod:
+        raise HTTPException(status_code=404, detail="Geçersiz dosya adı.")
+    yol = ANLATIM_DIZINI / kategori / f"{kod}.md"
+    if not yol.is_file():
+        raise HTTPException(status_code=404, detail="Bu içerik için anlatım metni bulunamadı.")
+    return {"metin": yol.read_text(encoding="utf-8").strip()}
 
 
 @app.get("/")

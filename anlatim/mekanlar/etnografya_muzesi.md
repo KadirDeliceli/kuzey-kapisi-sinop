@@ -1,21 +1,9 @@
-# Etnografya Müzesi (Aslan Torun Konağı)
+Değerli misafirim, şimdi adımlarımızı şehrin merkezine, Kefevi Mahallesi'ne doğru çeviriyoruz. Kemalettin Sami Caddesi üzerinde, Kef Evi Camii'nin hemen karşısında bizi bütün zarafetiyle karşılayan bir tarihe konuk oluyoruz: **Etnografya Müzesi**, namı diğer **Aslan Torun Konağı**! Sinop Müzesi'ne ve tarihi camilere de yürüme mesafesinde olan bu durak, adeta zaman tünelinden geçip eski günlere adım atmak gibidir.
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Etnografya Müzesi -->
-<!-- karsilama: Etnografya Müzesi hakkında merak ettiğinizi sorabilirsiniz. -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Gelin biraz yaklaşalım ve bu muazzam binayı inceleyelim: 18. yüzyılın sonunda inşa edilen bu yapı, Osmanlı sivil mimarisinin Sinop'taki en güzel, en görkemli örneklerinden biridir. Resmî kayıtlarda "Arslantorunlar Konağı" olarak da geçer. Zaten kapısından içeri girdiğiniz an sizi saran o ahşap kokusu, geçmişin unutulmaya yüz tutmuş sıcaklığını hemen hissettirir.
 
-## Konum ve Adres
-- **Açık Adres:** Sinop ili, Merkez ilçesi, Kefevi Mahallesi, Kemalettin Sami Caddesi.
-- **Tarif:** Şehir merkezinde, Kef Evi Camii'nin karşı tarafında; Sinop Müzesi ve tarihi camilere yürüme mesafesindedir.
+İçeride bizi neler bekliyor derseniz misafirim; bu çok katlı ahşap konağın odalarında Sinop ve Boyabat evlerinin yaşam kültürü tüm canlılığıyla sergileniyor. Zemin katında yöresel el sanatları, geleneksel mutfak eşyaları, takılar, kılıçlar ve o kadim dokuma tezgahları yer alırken; üst kata çıktığınızda adeta o dönem konakta yaşayanların günlük hayatına konuk oluyor, geleneksel konak yaşamının canlandırmalarıyla baş başa kalıyorsunuz.
 
-## Bilgiler
+Rehberiniz olarak küçük bir pratik bilgi de vereyim: Bu güzel müzemizde Müze Kart geçerlidir. Ancak ziyaret günleri ve saatleri mevsime göre değişiklik gösterebildiği, haftanın belirli bir günü kapalı olabildiği için yola çıkmadan önce güncel saatleri kontrol etmenizde fayda var.
 
-- 18. yüzyıl sonunda inşa edilen, Osmanlı sivil mimarisinin Sinop'taki en güzel örneklerinden biri olan tarihi konak. (Resmî kayıtlarda 'Arslantorunlar Konağı' olarak da geçer.)
-- Yöresel yaşam, el sanatları ve geleneksel eşyaların sergilendiği bir etnografya müzesidir.
-- Zemin katıyla birlikte çok katlı ahşap yapıda Sinop ve Boyabat evleri, mutfak, takı, kılıç ve dokuma tezgâhları; üst katta ise geleneksel konak yaşamı canlandırılır.
-- Müze Kart geçerlidir; ziyaret günleri ve saatleri mevsime göre değişebilir (haftanın bir günü kapalı olabilir).
-
-## Bot İçin Anlatım Notu
-
-- Yapının sivil mimari ve etnografik değeri anlatılır; ziyaret saatleri sorulursa güncel bilgi için resmî kaynağa yönlendirilir.
+Ne dersiniz misafirim, bu ahşap konağın odalarından ve Sinop'un günlük yaşam kültüründen sonra adımlarımızı hangi tarihi köşeye taşıyalım?

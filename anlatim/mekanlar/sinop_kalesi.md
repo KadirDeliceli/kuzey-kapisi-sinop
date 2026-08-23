@@ -1,32 +1,9 @@
-# Sinop Kalesi ve Surları
+Değerli misafirim, şimdi adımlarımızı şehrin etrafını bir kalkan gibi saran, Sinop'un o kadim siluetinin kalbine, surların gölgesine çeviriyoruz. Gelin Bülent Ecevit Caddesi taraflarından yaklaşalım ve bu görkemli Sinop Kalesi önünde soluklanalım; şehri saran surların hikayesini birlikte dinleyelim!
 
-<!-- persona: mekanlar.mekan_rehberi | kart: Tarih ve Kültür -->
-<!-- ad: Sinop Kalesi -->
-<!-- karsilama: Şehri saran surların hikayesini dinlemek ister misiniz? -->
-<!-- bilgi kaynagi: bu dosya ana kaynak; bot gerekirse web ile tamamlayabilir -->
+Bu muazzam savunma yapısı, Sinop yarımadasını baştan başa çevreleyerek adeta kentin zırhı olmuştur. Bildiğiniz üzere kalenin o iç kale bölümü, tarihte uzun süre tersane ve ardından o hüzünlü günleriyle tanıdığımız cezaevi olarak da kullanılmıştır.
 
-## Konum ve Adres
+Tarihine şöyle bir uzandığımızda misafirim; temellerinin çok eskilere, antik döneme, milattan önce 1. binyıla ve hatta daha öncesine kadar uzandığı kabul edilir. Grek, Pontus, Roma, Bizans, Selçuklu ve Osmanlı gibi asırlar boyunca bu topraklara hükmetmiş medeniyetler, burayı sürekli onarmış ve güçlendirmiştir. Özellikle 13. yüzyıldaki Selçuklu döneminde kaleye çok önemli onarımlar ve eklemeler yapılmıştır.
 
-- **Açık Adres:** Sinop ili, Merkez ilçesi, Meydankapı Mahallesi çevresi, Bülent Ecevit Caddesi (ana giriş/burç kesimi).
-- **Tarif:** Surlar yarımadayı çevreler; şehir merkezinin tam içindedir. Kumkapı ve limana yakın bölümünden sur üstüne çıkılabilir.
+Gelin surların kalın duvarlarına biraz daha yakından bakalım misafirim: Sur bedenleri yer yer o kadar yüksek ve kalındır ki, heybetiyle insanı hayrete düşürür; üstelik yapımında geçmiş medeniyetlere ait antik mimari parçalar devşirme olarak da kullanılmıştır. Şehir merkezinin tam içinden geçen bu surların bazı bölümlerine çıkıp gezebilir, oradan hem şehri hem de denizin o sonsuz maviliğini boylu boyunca izleyebilirsiniz.
 
-## Genel Tanım
-
-- Sinop yarımadasını bir kalkan gibi saran, şehrin simgesi devasa savunma yapısı.
-- Kalenin iç kale bölümü, uzun süre tersane ve daha sonra tarihi cezaevi olarak kullanılmıştır.
-
-## Tarihçe
-
-- Kökeni çok eskiye, antik döneme (M.Ö. 1. binyıl ve öncesi) uzanır.
-- Grek, Pontus, Roma, Bizans, Selçuklu ve Osmanlı dönemlerinde sürekli onarılıp güçlendirilmiştir.
-- Selçuklu döneminde (13. yüzyıl) önemli onarımlar ve eklemeler yapılmıştır.
-
-## Özellikler
-
-- Sur bedenleri yer yer çok yüksek ve kalındır; burçlarla desteklenmiştir.
-- Yapımında antik döneme ait mimari parçalar devşirme olarak kullanılmıştır.
-- Sur üstünün gezilebilen bölümlerinden şehir ve deniz manzarası izlenebilir.
-
-## Bot İçin Anlatım Notu
-
-- Surların katmanlı tarihi ve şehirle bütünlüğü anlatılır; kesin tarih iddialarında temkinli olunur.
+Ne dersiniz misafirim, bu asırlık surların etrafındaki adımlarımızı tamamladıktan sonra, Sinop'un hangi tarihi ve kültürel durağına doğru yol alalım?
