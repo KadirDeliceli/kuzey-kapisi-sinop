@@ -254,6 +254,14 @@ def _kategorisi(mekan):
     return _KATEGORI_ONBELLEK.get(mekan["id"], _VARSAYILAN_KATEGORI)
 
 
+def kategori_onbellegini_temizle(mekan_id):
+    """Bir mekan silinirse/güncellenirse (özellikle açıklaması değiştiyse)
+    önbellekteki eski kategori atamasını temizler; bir sonraki rota isteğinde
+    yeniden sınıflandırılır. admin_motoru.py bunu güncelleme/silme sırasında
+    çağırır."""
+    _KATEGORI_ONBELLEK.pop(mekan_id, None)
+
+
 def rota_olustur(enlem, boylam, sure_saat, turler=None):
     """
     sure_saat: 3-15 arası bir sayı (saat).
@@ -371,3 +379,23 @@ def varsayilan_rotalar_olustur(enlem, boylam):
     """6/7/8/9 saatlik, kategori filtresiz 4 hazır rota döner (uygulama
     açılışında kart olarak gösterilecek "öneri" listesi)."""
     return [rota_olustur(enlem, boylam, saat, turler=[]) for saat in VARSAYILAN_TUR_SAATLERI]
+
+
+def tum_mekanlari_listele():
+    """Admin paneli için: mekanlar tablosundaki TÜM satırları, anlatım
+    durumu bilgisiyle birlikte döner (rota filtresi/süre bütçesi UYGULANMAZ —
+    bu bir seçim/rota önerisi değil, ham veri listesidir). Ada göre sıralı."""
+    mekanlar = _mekanlari_getir()
+    sonuc = [
+        {
+            "id": m["id"],
+            "ad": m["ad"],
+            "enlem": m["enlem"],
+            "boylam": m["boylam"],
+            "sure_dk": m["sure_dk"],
+            "aciklama": m["aciklama"],
+            "anlatim_var": (ROTA_ANLATIM_DIZIN / f"{m['id']}.md").is_file(),
+        }
+        for m in mekanlar
+    ]
+    return sorted(sonuc, key=lambda m: m["ad"])

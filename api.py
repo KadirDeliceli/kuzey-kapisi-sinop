@@ -200,45 +200,6 @@ def admin_cikis(x_admin_token: str = Header(..., alias="X-Admin-Token")):
     return {"durum": "cikis_yapildi"}
 
 
-@app.post("/admin/persona-ekle")
-async def admin_persona_ekle(
-    kategori: str = Form(...),
-    ad: str = Form(...),
-    karsilama: str = Form(...),
-    icerik: str = Form(...),
-    kod: str = Form(None),
-    gorsel: UploadFile = File(...),
-    _yetki: bool = Depends(admin_yetki_kontrol),
-):
-    gorsel_bytes = await gorsel.read()
-    gorsel_uzanti = os.path.splitext(gorsel.filename or "")[1]
-    try:
-        return admin_motoru.persona_ekle(
-            kategori, ad, karsilama, icerik, kod, gorsel_bytes, gorsel_uzanti
-        )
-    except admin_motoru.AdminHatasi as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-
-class RotaYerEkleIstek(BaseModel):
-    ad: str
-    enlem: float
-    boylam: float
-    sure_dk: int
-    aciklama: str
-
-
-@app.post("/admin/rota-yer-ekle")
-def admin_rota_yer_ekle(istek: RotaYerEkleIstek, _yetki: bool = Depends(admin_yetki_kontrol)):
-    try:
-        yeni_id = admin_motoru.rota_yeri_ekle(
-            istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.aciklama
-        )
-    except admin_motoru.AdminHatasi as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    return {"id": yeni_id, "durum": "eklendi"}
-
-
 ANLATIM_DIZINI = Path(__file__).parent / "anlatim"
 
 @app.get("/anlatim/{kategori}/{kod}")
@@ -258,6 +219,142 @@ def rota_anlatim_getir(mekan_id: int):
     if not yol.is_file():
         raise HTTPException(status_code=404, detail="Bu durak için anlatım metni bulunamadı.")
     return {"metin": yol.read_text(encoding="utf-8").strip()}
+
+# --- PERSONA: EKLE (anlatim alanı eklendi) ---
+@app.post("/admin/persona-ekle")
+async def admin_persona_ekle(
+    kategori: str = Form(...),
+    ad: str = Form(...),
+    karsilama: str = Form(...),
+    icerik: str = Form(...),
+    kod: str = Form(None),
+    anlatim: str = Form(None),
+    gorsel: UploadFile = File(...),
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    gorsel_bytes = await gorsel.read()
+    gorsel_uzanti = os.path.splitext(gorsel.filename or "")[1]
+    try:
+        return admin_motoru.persona_ekle(
+            kategori, ad, karsilama, icerik, kod, gorsel_bytes, gorsel_uzanti, anlatim
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/admin/persona/{kategori}/{kod}")
+def admin_persona_getir(kategori: str, kod: str, _yetki: bool = Depends(admin_yetki_kontrol)):
+    try:
+        return admin_motoru.persona_getir(kategori, kod)
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+@app.get("/admin/rota-yeri/{mekan_id}")
+def admin_rota_yeri_getir(mekan_id: int, _yetki: bool = Depends(admin_yetki_kontrol)):
+    try:
+        return admin_motoru.rota_yeri_getir(mekan_id)
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+
+# --- PERSONA: GÜNCELLE ---
+@app.put("/admin/persona-guncelle/{kategori}/{kod}")
+async def admin_persona_guncelle(
+    kategori: str,
+    kod: str,
+    ad: str = Form(...),
+    karsilama: str = Form(...),
+    icerik: str = Form(...),
+    anlatim: str = Form(None),
+    gorsel: UploadFile = File(None),
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    gorsel_bytes = None
+    gorsel_uzanti = None
+    if gorsel is not None:
+        gorsel_bytes = await gorsel.read()
+        gorsel_uzanti = os.path.splitext(gorsel.filename or "")[1]
+    try:
+        return admin_motoru.persona_guncelle(
+            kategori, kod, ad, karsilama, icerik, anlatim, gorsel_bytes, gorsel_uzanti
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# --- PERSONA: SİL ---
+@app.delete("/admin/persona-sil/{kategori}/{kod}")
+def admin_persona_sil(
+    kategori: str,
+    kod: str,
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    try:
+        return admin_motoru.persona_sil(kategori, kod)
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# --- ROTA YERİ: EKLE (anlatim alanı eklendi) ---
+class RotaYerEkleIstek(BaseModel):
+    ad: str
+    enlem: float
+    boylam: float
+    sure_dk: int
+    aciklama: str
+    anlatim: str | None = None
+
+
+@app.post("/admin/rota-yer-ekle")
+def admin_rota_yer_ekle(
+    istek: RotaYerEkleIstek,
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    try:
+        return admin_motoru.rota_yeri_ekle(
+            istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.aciklama, istek.anlatim
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+# --- ROTA YERİ: GÜNCELLE ---
+class RotaYerGuncelleIstek(BaseModel):
+    ad: str
+    enlem: float
+    boylam: float
+    sure_dk: int
+    aciklama: str
+    anlatim: str | None = None
+
+
+@app.put("/admin/rota-yer-guncelle/{mekan_id}")
+def admin_rota_yer_guncelle(
+    mekan_id: int,
+    istek: RotaYerGuncelleIstek,
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    try:
+        return admin_motoru.rota_yeri_guncelle(
+            mekan_id, istek.ad, istek.enlem, istek.boylam, istek.sure_dk, istek.aciklama, istek.anlatim
+        )
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/admin/rota-yerleri")
+def admin_rota_yerleri_listele(_yetki: bool = Depends(admin_yetki_kontrol)):
+    return {"mekanlar": rota_motoru.tum_mekanlari_listele()}
+
+# --- ROTA YERİ: SİL ---
+@app.delete("/admin/rota-yer-sil/{mekan_id}")
+def admin_rota_yer_sil(
+    mekan_id: int,
+    _yetki: bool = Depends(admin_yetki_kontrol),
+):
+    try:
+        return admin_motoru.rota_yeri_sil(mekan_id)
+    except admin_motoru.AdminHatasi as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @app.get("/")
