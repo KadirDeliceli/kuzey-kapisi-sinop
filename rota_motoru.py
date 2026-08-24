@@ -48,6 +48,7 @@ load_dotenv()
 
 KOK_DIZIN = Path(__file__).parent
 DB_YOLU = KOK_DIZIN / "kuzey_kapisi.db"   # <-- gerçek dosya adın farklıysa burayı değiştir
+ROTA_ANLATIM_DIZIN = KOK_DIZIN / "rota_anlatim"  # {mekan_id}.md dosyaları burada
 ORTALAMA_HIZ_KMH = 45                      # kalibre edilebilir varsayım
 SABIT_VARIS_EKI_DK = 15                    # park etme / yürüme payı
 
@@ -310,6 +311,7 @@ def rota_olustur(enlem, boylam, sure_saat, turler=None):
             "ziyaret_suresi_dk": mekan["sure_dk"],
             "varis_toplam_dk": kullanilan_dk,
             "google_maps_url": _google_maps_url(mekan["enlem"], mekan["boylam"]),
+            "anlatim_var": (ROTA_ANLATIM_DIZIN / f"{mekan['id']}.md").is_file(),
         })
         sira += 1
         su_anki_lat, su_anki_lon = mekan["enlem"], mekan["boylam"]

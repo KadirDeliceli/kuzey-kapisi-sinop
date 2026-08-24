@@ -250,6 +250,15 @@ def anlatim_getir(kategori: str, kod: str):
         raise HTTPException(status_code=404, detail="Bu içerik için anlatım metni bulunamadı.")
     return {"metin": yol.read_text(encoding="utf-8").strip()}
 
+ROTA_ANLATIM_DIZINI = Path(__file__).parent / "rota_anlatim"
+
+@app.get("/rota-anlatim/{mekan_id}")
+def rota_anlatim_getir(mekan_id: int):
+    yol = ROTA_ANLATIM_DIZINI / f"{mekan_id}.md"
+    if not yol.is_file():
+        raise HTTPException(status_code=404, detail="Bu durak için anlatım metni bulunamadı.")
+    return {"metin": yol.read_text(encoding="utf-8").strip()}
+
 
 @app.get("/")
 def succes():
