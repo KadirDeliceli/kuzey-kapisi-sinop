@@ -224,12 +224,18 @@ def persona_guncelle(
     ad: str,
     karsilama: str,
     icerik: str,
-    anlatim: str | None,
+    anlatim: str,
+    anlatim_kaldir: bool,
     gorsel_bytes: bytes | None,
     gorsel_uzanti: str | None,
 ) -> dict:
-    """anlatim=None -> mevcut anlatıma DOKUNMA. anlatim="" (boş) -> anlatımı
-    KALDIR. anlatim="metin" -> anlatımı yaz/üzerine yaz.
+    """anlatim_kaldir=True -> anlatımı KALDIRIR (anlatim metninin içeriği
+    ÖNEMSİZDİR, görmezden gelinir). anlatim_kaldir=False VE anlatim boşsa ->
+    mevcut anlatıma DOKUNULMAZ (hem "alan hiç gönderilmedi" hem "boş
+    gönderildi" durumu FastAPI/Starlette'in multipart form ayrıştırmasında
+    AYIRT EDİLEMEDİĞİ için — ikisi de aynı şekilde "" olarak gelir — kaldırma
+    niyeti SADECE bu ayrı bayrakla ifade edilir, boş string'e GÜVENİLMEZ).
+    anlatim_kaldir=False VE anlatim doluysa -> yazılır/üzerine yazılır.
     gorsel_bytes=None -> mevcut görsele DOKUNMA."""
     if kategori not in KATEGORI_PERSONA:
         raise AdminHatasi(f"Geçersiz kategori: {kategori!r}")
@@ -269,12 +275,13 @@ def persona_guncelle(
         (gorseller_klasoru / f"{kod}{gorsel_uzanti.lower()}").write_bytes(gorsel_bytes)
 
     anlatim_yolu = ANLATIM_DIZIN / kategori / f"{kod}.md"
-    if anlatim is not None:
-        if anlatim.strip():
-            anlatim_yolu.parent.mkdir(parents=True, exist_ok=True)
-            anlatim_yolu.write_text(anlatim.strip(), encoding="utf-8")
-        elif anlatim_yolu.is_file():
+    if anlatim_kaldir:
+        if anlatim_yolu.is_file():
             anlatim_yolu.unlink()
+    elif anlatim and anlatim.strip():
+        anlatim_yolu.parent.mkdir(parents=True, exist_ok=True)
+        anlatim_yolu.write_text(anlatim.strip(), encoding="utf-8")
+    # else: anlatim_kaldir=False VE metin boş -> mevcut anlatıma DOKUNMA
 
     _katalogu_tazele()
 

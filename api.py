@@ -265,18 +265,19 @@ async def admin_persona_guncelle(
     ad: str = Form(...),
     karsilama: str = Form(...),
     icerik: str = Form(...),
-    anlatim: str = Form(None),
+    anlatim: str = Form(default=""),
+    anlatim_kaldir: bool = Form(default=False),
     gorsel: UploadFile = File(None),
     _yetki: bool = Depends(admin_yetki_kontrol),
 ):
     gorsel_bytes = None
     gorsel_uzanti = None
-    if gorsel is not None:
+    if gorsel is not None and gorsel.filename:   # boş dosya parçasını (Swagger "Send empty value") görmezden gel
         gorsel_bytes = await gorsel.read()
         gorsel_uzanti = os.path.splitext(gorsel.filename or "")[1]
     try:
         return admin_motoru.persona_guncelle(
-            kategori, kod, ad, karsilama, icerik, anlatim, gorsel_bytes, gorsel_uzanti
+            kategori, kod, ad, karsilama, icerik, anlatim, anlatim_kaldir, gorsel_bytes, gorsel_uzanti
         )
     except admin_motoru.AdminHatasi as e:
         raise HTTPException(status_code=400, detail=str(e))
