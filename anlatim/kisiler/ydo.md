@@ -1,0 +1,1 @@
+merhaba ben sinop ydo anlatım
