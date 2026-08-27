@@ -18,12 +18,20 @@ app = FastAPI(title="Sinop Akıllı Turizm API")
 
 # uygulamanın bu API'ye erişebilmesi için gereklidir.
 
-app.add_middleware(
+'''app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"http://(localhost|127\.0\.0\.1|192\.168\.\d{1,3}\.\d{1,3}):\d+",
     allow_origins=[
         "http://localhost:3000",   # Next.js (varsa)
     ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)'''
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Canlıda her yerden gelen isteklere izin ver
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
