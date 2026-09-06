@@ -34,6 +34,7 @@ _BILINEN_HALUSINASYONLAR = (
     "çeviren:",
     "izlediğiniz için teşekkürler",
     "izlediğiniz i̇çin teşekkürler",
+    "izlediğiniz i̇çin teşekkür ederim",
     "abone olmayı unutmayın",
     "beğenmeyi unutmayın",
     "bir sonraki videoda görüşmek üzere",
