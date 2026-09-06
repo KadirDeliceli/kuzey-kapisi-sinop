@@ -18,23 +18,41 @@ mesajlar aynı oturumda karışmadan, aynı hafızada birikir.
 """
 
 import os
+import unicodedata
 from groq import Groq
 
 # whisper-large-v3-turbo: hızlı + çok dilli + ucuz (varsayılan).
 # Daha yüksek doğruluk gerekirse "whisper-large-v3" ile değiştirilebilir.
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "whisper-large-v3-turbo")
 
+
+def _sadelestir(metin: str) -> str:
+    """Karşılaştırma için SAĞLAM bir anahtar üretir. Python'un varsayılan
+    .lower()'ı Türkçe büyük 'İ' harfini düz 'i' değil, 'i' + görünmez bir
+    BİRLEŞİK NOKTA karakterine çevirir (İ.lower() == 'i̇', iki karakter) —
+    bu da elle yazılmış kalıplarla bayt bayt eşleşmeyi sessizce bozar. Bu
+    fonksiyon önce Türkçe büyük harfleri elle çevirir, sonra kalan tüm
+    birleşik aksan/nokta işaretlerini temizler. HEM gelen Whisper metni HEM
+    _BILINEN_HALUSINASYONLAR listesi bu fonksiyondan geçirildiği için, iki
+    taraf da aynı şekilde sadeleşir ve büyük/küçük harf farkları bir daha
+    sorun olmaz."""
+    metin = metin.replace("İ", "i").replace("I", "ı")
+    metin = metin.lower()
+    metin = unicodedata.normalize("NFKD", metin)
+    return "".join(ch for ch in metin if not unicodedata.combining(ch))
+
+
 # Whisper'ın SESSİZLİK ya da anlaşılmaz gürültüde ürettiği BİLİNEN "halüsinasyon"
 # kalıpları — model, eğitim verisindeki altyazı kredilerinden bu tür ifadeler
-# üretme eğilimindedir. Yeni bir kalıp fark edersen bu listeye ekleyebilirsin.
-_BILINEN_HALUSINASYONLAR = (
+# üretme eğilimindedir. Yeni bir kalıp fark edersen bu listeye DÜZ TÜRKÇE
+# olarak (büyük/küçük harf ya da aksan varyasyonu düşünmeden) eklemen yeterli
+# — _sadelestir() ikisini de aynı şekilde normalize eder.
+_BILINEN_HALUSINASYONLAR = tuple(_sadelestir(k) for k in (
     "altyazı m.k",
-    "altyazı m.k.",
     "çeviri:",
     "çeviren:",
     "izlediğiniz için teşekkürler",
-    "izlediğiniz i̇çin teşekkürler",
-    "izlediğiniz i̇çin teşekkür ederim",
+    "izlediğiniz için teşekkür ederim",
     "abone olmayı unutmayın",
     "beğenmeyi unutmayın",
     "bir sonraki videoda görüşmek üzere",
@@ -43,7 +61,7 @@ _BILINEN_HALUSINASYONLAR = (
     "thanks for watching",
     "thank you for watching",
     "please subscribe",
-)
+))
 
 
 def _halusinasyon_mu(metin: str) -> bool:
@@ -52,7 +70,7 @@ def _halusinasyon_mu(metin: str) -> bool:
     metinler, kullanıcının gerçekten söylediği bir şey değil, model
     halüsinasyonu kabul edilir. Uzun/anlamlı cümleler bu filtreden geçmez
     (yanlışlıkla gerçek konuşmayı elemesin diye)."""
-    temiz = metin.strip().lower()
+    temiz = _sadelestir(metin.strip())
     if not temiz:
         return True
     if len(temiz.split()) > 6:
