@@ -24,6 +24,40 @@ from groq import Groq
 # Daha yüksek doğruluk gerekirse "whisper-large-v3" ile değiştirilebilir.
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "whisper-large-v3-turbo")
 
+# Whisper'ın SESSİZLİK ya da anlaşılmaz gürültüde ürettiği BİLİNEN "halüsinasyon"
+# kalıpları — model, eğitim verisindeki altyazı kredilerinden bu tür ifadeler
+# üretme eğilimindedir. Yeni bir kalıp fark edersen bu listeye ekleyebilirsin.
+_BILINEN_HALUSINASYONLAR = (
+    "altyazı m.k",
+    "altyazı m.k.",
+    "çeviri:",
+    "çeviren:",
+    "izlediğiniz için teşekkürler",
+    "izlediğiniz i̇çin teşekkürler",
+    "abone olmayı unutmayın",
+    "beğenmeyi unutmayın",
+    "bir sonraki videoda görüşmek üzere",
+    "www.",
+    "subtitles by",
+    "thanks for watching",
+    "thank you for watching",
+    "please subscribe",
+)
+
+
+def _halusinasyon_mu(metin: str) -> bool:
+    """Whisper'ın sessizlik/gürültüde ürettiği bilinen kalıp ifadeleri
+    tespit eder. KISA (en fazla 6 kelime) VE bu kalıplardan birini içeren
+    metinler, kullanıcının gerçekten söylediği bir şey değil, model
+    halüsinasyonu kabul edilir. Uzun/anlamlı cümleler bu filtreden geçmez
+    (yanlışlıkla gerçek konuşmayı elemesin diye)."""
+    temiz = metin.strip().lower()
+    if not temiz:
+        return True
+    if len(temiz.split()) > 6:
+        return False
+    return any(kalip in temiz for kalip in _BILINEN_HALUSINASYONLAR)
+
 _groq_client = None
 
 
@@ -57,6 +91,9 @@ def ses_metne_cevir(ses_bytes: bytes, dosya_adi: str = "ses.webm") -> str:
             response_format="json",
             temperature=0.0,
         )
-        return (yanit.text or "").strip()
+        metin = (yanit.text or "").strip()
+        if _halusinasyon_mu(metin):
+            return ""
+        return metin
     except Exception as e:
         raise RuntimeError(f"Ses metne çevrilemedi: {e}")
