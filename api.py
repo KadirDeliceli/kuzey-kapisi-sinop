@@ -365,6 +365,42 @@ def admin_rota_yer_sil(
     except admin_motoru.AdminHatasi as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+import ses_motoru
+
+class VoiceChatYanit(BaseModel):
+    session_id: str
+    kullanici_metni: str
+    cevap: str
+
+
+@app.post("/voice-chat", response_model=VoiceChatYanit)
+async def voice_chat(
+    session_id: str = Form(...),
+    ses: UploadFile = File(...),
+):
+    ses_bytes = await ses.read()
+    try:
+        kullanici_metni = ses_motoru.ses_metne_cevir(ses_bytes, ses.filename)
+    except RuntimeError as e:
+        raise HTTPException(status_code=502, detail=str(e))
+
+    if not kullanici_metni:
+        raise HTTPException(
+            status_code=400,
+            detail="Sizi anlayamadım, lütfen net bir şekilde tekrar deneyin.",
+        )
+
+    try:
+        cevap = bot_engine.cevap_uret(session_id, kullanici_metni)
+    except KeyError:
+        raise HTTPException(
+            status_code=404,
+            detail="Geçersiz veya süresi dolmuş session_id. Önce /oturum/baslat çağırın.",
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Yanıt üretilemedi: {e}")
+
+    return VoiceChatYanit(session_id=session_id, kullanici_metni=kullanici_metni, cevap=cevap)
 
 @app.get("/")
 def succes():
